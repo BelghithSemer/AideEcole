@@ -1,0 +1,58 @@
+{# templates/navbar.html.twig #}
+
+<!-- headar section start -->
+<header>
+    <div class="headerarea headerarea__2  header__sticky header__area">
+        <div class="container desktop__menu__wrapper">
+            <div class="row headerarea__search__wrap align-items-center">
+                <div class="col-xl-3 col-lg-3">
+                    <div class="headerarea__2__inner"></div>
+                </div>
+                <div class="col-xl-6 col-lg-6">
+                    <div class="headerarea__2__input">
+                        <input type="text" placeholder="Search Course">
+                        <i class="icofont-search-1"></i>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6">
+                    <div class="headerarea__right">
+                        <div class="headerarea__login">
+                            <a href="login.html"><i class="icofont-user-alt-5"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-6">
+                    <div class="headerarea__left">
+                        <div class="headerarea__left__logo">
+                            <a href="index.html"><img loading="lazy" src="{{ asset('img/logo/logo_1.png') }}" alt="logo" width="300px"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-7 main_menu_wrap">
+                    <div class="headerarea__main__menu">
+                        <nav>
+                            <ul>
+                                <li class="mega__menu position-static">
+                                    <a class="headerarea__has__dropdown" href={{ path('app_annonceparent_index_1') }}>Annonces</a>
+                                </li>
+                                <li class="mega__menu position-static">
+                                    <a class="headerarea__has__dropdown" href={{ path('app_signalement_index') }}>Signalements</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6">
+                    <div class="headerarea__right">
+                        <div class="headerarea__button">
+                            <a href="#">Get Start Here</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header section end -->

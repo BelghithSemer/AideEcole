@@ -1,0 +1,109 @@
+{% extends 'home/quiz.html.twig' %}  
+
+{% block body %}  
+<div class="col-xl-9 col-lg-9 col-md-12">  
+    <div class="dashboard__content__wraper">  
+        <div class="dashboard__section__title">  
+            <h4></h4>  
+        </div>  
+        
+        <div class="row">  
+            <div class="col-xl-12 aos-init aos-animate" data-aos="fade-up">  
+                <ul class="nav about__button__wrap dashboard__button__wrap" id="myTab" role="tablist">  
+                    <li class="nav-item" role="presentation">  
+                        <button class="single__tab__link active" data-bs-toggle="tab"  
+                            data-bs-target="#projects__one" type="button" aria-selected="true"  
+                            role="tab">Ajouter un post</button>  
+                    </li>  
+                </ul>  
+                  
+            </div>  
+
+            <div class="tab-content tab__content__wrapper aos-init aos-animate" id="myTabContent" data-aos="fade-up">  
+                <div class="tab-pane fade active show" id="projects__one" role="tabpanel">  
+                    <div class="row">  
+                        <div class="col-xl-12">  
+                            {{ form_start(form) }}  
+
+                           <div class="row">  
+    <div class="col-xl-6">  
+        <div class="dashboard__form__wraper">  
+            <div class="dashboard__form__input">  
+                <label>{{ form_label(form.Date) }}</label>  
+                {{ form_widget(form.Date, {'attr': {'class': 'form-control', 'value': "now"|date('Y-m-d\TH:i')}}) }}  
+            
+
+            <div class="error-message">
+        {{ form_errors(form.Date) }}
+         </div>
+    </div> 
+        </div>  
+    </div>  
+</div>
+ 
+                                <div class="col-xl-6">  
+                                    <div class="dashboard__form__wraper">  
+                                        <div class="dashboard__form__input">  
+                                            <label>{{ form_label(form.Questions) }}</label>  
+                                            {{ form_widget(form.Questions, {'attr': {'class': 'form-control'}}) }}  
+  {{ form_errors(form.Questions) }}
+                                              <div class="error-message">
+                                              
+                                                </div>
+                                        </div> 
+                                     
+                                    </div>  
+                                </div>  
+
+                                <div class="col-xl-12">  
+                                    <div class="dashboard__form__wraper">  
+                                        <div class="dashboard__form__input">  
+                                            <label>{{ form_label(form.Description) }}</label>  
+                                            {{ form_widget(form.Description, {'attr': {'class': 'form-control'}}) }} 
+                                              <div class="error-message">
+        {{ form_errors(form.Description) }}
+         </div> 
+                                        </div>  
+                                    </div>  
+                                </div>  
+
+                                <div class="col-xl-12">  
+                                    <div class="dashboard__form__wraper">  
+                                        <div class="dashboard__form__input">  
+                                            <label>{{ form_label(form.Images) }}</label>  
+                                            {{ form_widget(form.Images) }}  
+
+                                              <div class="error-message">
+        {{ form_errors(form.Images) }}
+         </div>
+                                        </div>  
+                                    </div>  
+                                </div>  
+
+                                <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<script src="{{ asset('js/script.js') }}"></script>
+
+    {{ form_widget(form.Categorie) }}
+      <div class="error-message">
+        {{ form_errors(form.Categorie) }}
+         </div>
+
+                                <div class="col-xl-12">  
+                                    <div class="dashboard__form__button">  
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+
+
+                                    </div>  
+                                </div>  
+                            </div>  
+
+                            {{ form_end(form) }}  
+                        </div>  
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+</div>  
+{% endblock %}

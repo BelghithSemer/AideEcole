@@ -1,0 +1,355 @@
+{% extends "home/quiz.html.twig" %}
+
+{% block body %}
+                 <div class="col-xl-9 col-lg-9 col-md-12">
+                    <div class="dashboard__content__wraper">
+                         <!-- contact__form__start -->
+        <div class="contact__from__wraper sp_bottom_100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="contact__form__inner">
+                            <div class="contact__form__heading" data-aos="fade-up">
+                                <h3>Feedbacks</h3>
+                                
+                                <p>Les champs obligatoires sont marqués * </p>
+                            </div>
+
+
+
+                             
+ {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}   
+<div class="row">  
+
+    <div class="col-xl-6" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.nom) }}  
+            {{ form_widget(form.nom , {'attr': {'class': 'form-control ' ~ (form.nom.vars.errors|length > 0 ? 'is-invalid' : '') }})  }} 
+
+            {% if form.nom.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.nom) }}  
+                </div>  
+            {% endif %}  
+            <div class="contact__icon">  
+                <i class="icofont-businessman"></i>  
+            </div>  
+        </div>  
+    </div>  
+
+    <div class="col-xl-6" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.prenom) }}  
+            {{ form_widget(form.prenom, {'attr': {'class': 'form-control ' ~ (form.prenom.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+            
+            {% if form.prenom.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.prenom) }}  
+                </div>  
+            {% endif %}  
+            <div class="contact__icon">  
+                <i class="icofont-businessman"></i>  
+            </div>  
+        </div>  
+    </div>  
+
+    <div class="col-xl-6" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.mail) }}  
+            {{ form_widget(form.mail, {'attr': {'class': 'form-control ' ~ (form.mail.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+            
+            {% if form.mail.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.mail) }}  
+                </div>  
+            {% endif %}  
+            <div class="contact__icon">  
+                <i class="icofont-envelope"></i>  
+            </div>  
+        </div>  
+    </div>  
+
+    <div class="col-xl-6" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.note) }}  
+            {{ form_widget(form.note, {'attr': {'class': 'form-control ' ~ (form.note.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+            
+            {% if form.note.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.note) }}  
+                </div>  
+            {% endif %}  
+            <div class="contact__icon">  
+                <i class="icofont-star"></i>   
+            </div>  
+        </div>  
+    </div>  
+
+    <div class="col-xl-6" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.experience_level) }}  
+            {{ form_widget(form.experience_level, {'attr': {'class': 'form-control ' ~ (form.experience_level.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+            
+            {% if form.experience_level.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.experience_level) }}  
+                </div>  
+            {% endif %}  
+            <div class="contact__icon">  
+                <i class="icofont-star"></i>  
+            </div>  
+        </div>  
+    </div>  
+
+    <div class="col-xl-6" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.recommend_platform) }}  
+            {{ form_widget(form.recommend_platform, {'attr': {'class': 'form-control ' ~ (form.recommend_platform.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+            
+            {% if form.recommend_platform.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.recommend_platform) }}  
+                </div>  
+            {% endif %}  
+            <div class="contact__icon">  
+                <i class="icofont-thumbs-up"></i>  
+            </div>  
+        </div>  
+    </div>  
+
+    <div class="col-xl-6" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.usage_frequency) }}  
+            {{ form_widget(form.usage_frequency, {'attr': {'class': 'form-control ' ~ (form.usage_frequency.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+            
+            {% if form.usage_frequency.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.usage_frequency) }}  
+                </div>  
+            {% endif %}  
+            <div class="contact__icon">  
+                <i class="icofont-clock-time"></i>  
+            </div>  
+        </div>  
+    </div>  
+
+    {% if 'ROLE_PARENT' in user.roles %}  
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.avis1) }}  
+                {{ form_widget(form.avis1, {'attr': {'class': 'form-control ' ~ (form.avis1.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+                
+                {% if form.avis1.vars.errors|length > 0 %}  
+                    <div class="invalid-feedback d-block text-danger">  
+                        {{ form_errors(form.avis1) }}  
+                    </div>  
+                {% endif %}  
+                <div class="contact__icon">  
+                    <i class="icofont-book"></i>  
+                </div>  
+            </div>  
+        </div>  
+
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.avis2) }}  
+                {{ form_widget(form.avis2, {'attr': {'class': 'form-control ' ~ (form.avis2.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+                
+                {% if form.avis2.vars.errors|length > 0 %}  
+                    <div class="invalid-feedback d-block text-danger">  
+                        {{ form_errors(form.avis2) }}  
+                    </div>  
+                {% endif %}  
+                <div class="contact__icon">  
+                    <i class="icofont-book"></i>  
+                </div>  
+            </div>  
+        </div>  
+
+        <div class="col-xl-12" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.avis3) }}  
+            {{ form_widget(form.avis3, {'attr': {'class': 'form-control ' ~ (form.avis3.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+            
+            {% if form.avis3.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.avis3) }}  
+                </div>  
+            {% endif %}  
+            <div class="contact__icon">  
+                <i class="icofont-money"></i>  
+            </div>  
+        </div>  
+    </div>  
+    {% endif %} 
+
+    {% if 'ROLE_DONATEUR' in user.roles %}  
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.avis4) }}  
+                {{ form_widget(form.avis4, {'attr': {'class': 'form-control ' ~ (form.avis4.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+                
+                {% if form.avis4.vars.errors|length > 0 %}  
+                    <div class="invalid-feedback d-block text-danger">  
+                        {{ form_errors(form.avis4) }}  
+                    </div>  
+                {% endif %}  
+                <div class="contact__icon">  
+                    <i class="icofont-money"></i>  
+                </div>  
+            </div>  
+        </div>  
+
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.avis5) }}  
+                {{ form_widget(form.avis5, {'attr': {'class': 'form-control ' ~ (form.avis5.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+                
+                {% if form.avis5.vars.errors|length > 0 %}  
+                    <div class="invalid-feedback d-block text-danger">  
+                        {{ form_errors(form.avis5) }}  
+                    </div>  
+                {% endif %}  
+                <div class="contact__icon">  
+                    <i class="icofont-comment"></i>  
+                </div>  
+            </div>  
+        </div>    
+    {% endif %}  
+
+    {% if 'ROLE_CENTRE_FORMATION' in user.roles %}  
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.avis6) }}  
+                {{ form_widget(form.avis6, {'attr': {'class': 'form-control ' ~ (form.avis6.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+                
+                {% if form.avis6.vars.errors|length > 0 %}  
+                    <div class="invalid-feedback d-block text-danger">  
+                        {{ form_errors(form.avis6) }}  
+                    </div>  
+                {% endif %}  
+                <div class="contact__icon">  
+                    <i class="icofont-comment"></i>  
+                </div>  
+            </div>  
+        </div>   
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.avis7) }}  
+                {{ form_widget(form.avis7, {'attr': {'class': 'form-control ' ~ (form.avis7.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+                
+                {% if form.avis7.vars.errors|length > 0 %}  
+                    <div class="invalid-feedback d-block text-danger">  
+                        {{ form_errors(form.avis7) }}  
+                    </div>  
+                {% endif %}  
+                <div class="contact__icon">  
+                    <i class="icofont-comment"></i>  
+                </div>  
+            </div>  
+        </div>   
+    {% endif %}   
+
+    {% if 'ROLE_RESPONSABLE_ETABLISSEMENT' in user.roles %}  
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.avis8) }}  
+                {{ form_widget(form.avis8, {'attr': {'class': 'form-control ' ~ (form.avis8.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+                
+                {% if form.avis8.vars.errors|length > 0 %}  
+                    <div class="invalid-feedback d-block text-danger">  
+                        {{ form_errors(form.avis8) }}  
+                    </div>  
+                {% endif %}  
+                <div class="contact__icon">  
+                    <i class="icofont-comment"></i>  
+                </div>  
+            </div>  
+        </div>   
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.avis9) }}  
+                {{ form_widget(form.avis9, {'attr': {'class': 'form-control ' ~ (form.avis9.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+                
+                {% if form.avis9.vars.errors|length > 0 %}  
+                    <div class="invalid-feedback d-block text-danger">  
+                        {{ form_errors(form.avis9) }}  
+                    </div>  
+                {% endif %}  
+                <div class="contact__icon">  
+                    <i class="icofont-comment"></i>  
+                </div>  
+            </div>  
+        </div>  
+    {% endif %}  
+
+    {% if 'ROLE_ENSIEGNANT' in user.roles %}  
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.avis10) }}  
+                {{ form_widget(form.avis10, {'attr': {'class': 'form-control ' ~ (form.avis10.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+                
+                {% if form.avis10.vars.errors|length > 0 %}  
+                    <div class="invalid-feedback d-block text-danger">  
+                        {{ form_errors(form.avis10) }}  
+                    </div>  
+                {% endif %}  
+                <div class="contact__icon">  
+                    <i class="icofont-comment"></i>  
+                </div>  
+            </div>  
+        </div>   
+
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.avis11) }}  
+                {{ form_widget(form.avis11, {'attr': {'class': 'form-control ' ~ (form.avis11.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+                
+                {% if form.avis11.vars.errors|length > 0 %}  
+                    <div class="invalid-feedback d-block text-danger">  
+                        {{ form_errors(form.avis11) }}  
+                    </div>  
+                {% endif %}  
+                <div class="contact__icon">  
+                    <i class="icofont-comment"></i>  
+                </div>  
+            </div>  
+        </div>   
+    {% endif %} 
+
+    {# Avis12 (en dehors de la condition if) #}
+    <div class="col-xl-12" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.avis12) }}  
+            {{ form_widget(form.avis12, {'attr': {'class': 'form-control ' ~ (form.avis12.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}   
+            
+            {% if form.avis12.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.avis12) }}  
+                </div>  
+            {% endif %}  
+            <div class="contact__icon">  
+                <i class="icofont-comment"></i>  
+            </div>  
+        </div>  
+    </div>
+
+    {# Bouton "Enregistrer votre feedback" #}
+    <div class="col-xl-12" data-aos="fade-up">  
+        <div class="contact__button">  
+            <button type="submit" value="submit" class="default__button" name="submit">Enregistrer votre feedback</button>
+            <p class="form-messege"></p>  
+        </div>  
+    </div>  
+
+
+
+</div>  
+        <!-- contact__form__end-->
+                        
+                    </div>
+                </div>
+                {{ form_end(form) }}
+{% endblock %}
+
+                            

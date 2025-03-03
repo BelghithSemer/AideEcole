@@ -1,0 +1,124 @@
+/* large screens */
+@media (min-width: 1600px)
+{
+
+}
+
+
+@media (max-width: 1500px)
+{
+    
+}
+
+
+/* Desktops/Laptops */
+@media (max-width: 1200px)
+{
+    .quiz-question
+    {
+        font-size: 30px;
+        width: 80%;
+    }
+    fieldset
+    {
+        width: 70%;
+    }
+    .question
+    {
+        display: none;
+    }
+}
+
+/* Laptops */
+@media (max-width: 1024px)
+{
+
+}
+
+/* Tablets */
+@media (max-width: 768px)
+{
+    .quiz-question
+    {
+        width: 90%;
+        font-size: 25px;
+        padding: 30px;
+    }
+    fieldset
+    {
+        width: 80%;
+    }
+    .step-bar .step-count
+    {
+        width: 50px;
+        height: 50px;
+        font-size: 30px;
+    }
+    .step-bar .bar::after
+    {
+        width: 100px;
+    }
+}
+
+/* mobile */
+@media (max-width: 576px)
+{
+    main
+    {
+        padding: 0;
+    }
+    header
+    {
+        padding: 20px;
+        background-color: rgb(255,255,255);
+        margin-bottom: 20px;
+
+    }
+    .step-count
+    {
+        display: none;
+    }
+    #countdown
+    {
+        width: 100%;
+    }
+    .steps
+    {
+        padding: 20px;
+    }
+    .step-bar
+    {
+        display: none;
+    }
+    form
+    {
+        border-radius: 0;
+    }
+    .quiz-question
+    {
+        width: 100%;
+        font-size: 20px;
+    }
+    fieldset
+    {
+        padding: 50px 10px;
+        width: 100%;
+    }
+    .radio-field
+    {
+        height: 70px;
+    }
+    .radio-field label
+    {
+        font-size: 15px;
+    }
+    .next-prev
+    {
+        position: static;
+    }
+    .next-prev button
+    {
+        width: 100%;
+        border-radius: 0 !important;
+    }
+}

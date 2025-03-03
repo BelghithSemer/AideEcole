@@ -1,0 +1,134 @@
+{% extends "home/quiz.html.twig" %}
+{% block body%}
+                 <div class="col-xl-9 col-lg-9 col-md-12">  
+    <div class="dashboard__content__wraper">  
+        <div class="dashboard__section__title">  
+            <h4></h4>  
+        </div>  
+        
+        <div class="row">  
+            <div class="col-xl-12 aos-init aos-animate" data-aos="fade-up">  
+                <ul class="nav about__button__wrap dashboard__button__wrap" id="myTab" role="tablist">  
+                    <li class="nav-item" role="presentation">  
+                        <button class="single__tab__link active" data-bs-toggle="tab"  
+                            data-bs-target="#projects__one" type="button" aria-selected="true"  
+                            role="tab">Informations de Cours</button>  
+                    </li>  
+                </ul>  
+                
+            </div>  
+
+            <div class="tab-content tab__content__wrapper aos-init aos-animate" id="myTabContent" data-aos="fade-up">  
+                <div class="tab-pane fade active show" id="projects__one" role="tabpanel">  
+                    <div class="row">  
+                        <div class="col-xl-12">  
+                          {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="row">  
+                    <div class="col-xl-6">  
+                        <div class="dashboard__form__wraper">  
+                            <div class="dashboard__form__input">  
+                                <label for="#">Titre de Cours</label>
+                                {{ form_widget(form.Titre, {'attr': {'class': 'form-control'}}) }}  
+                                <div class="invalid-feedback d-block text-danger">
+                                    {{ form_errors(form.Titre) }}
+                                </div>
+                            </div>  
+                        </div>  
+                    </div>  
+                    
+                    <div class="col-xl-6">  
+                    <div class="dashboard__form__wrapper">  
+                        <div class="dashboard__form__input">  
+                            <label class="fw-bold text-dark" for="{{ form.Matiere.vars.id }}">Matière</label>  
+                            {{ form_widget(form.Matiere, {'attr': {'class': 'form-control rounded shadow text-dark', 'placeholder': 'Entrez votre matière'}}) }}  
+                            <div class="invalid-feedback d-block text-danger">  
+                                {{ form_errors(form.Matiere) }}  
+                            </div>  
+                        </div>  
+                    </div>  
+                </div>  
+
+                    <div class="col-xl-6">  
+                        <div class="dashboard__form__wraper">  
+                            <div class="dashboard__form__input">  
+                                <label for="description">Description de Cours</label>
+                                {{ form_widget(form.Description) }}  
+                                <div class="invalid-feedback d-block text-danger">
+                                    {{ form_errors(form.Description) }}
+                                </div>
+                            </div>  
+                        </div>  
+                    </div>  
+
+                <div class="col-xl-6">  
+                    <div class="dashboard__form__wrapper">  
+                        <div class="dashboard__form__input">  
+                            <label class="fw-bold text-dark" for="{{ form.Niveau.vars.id }}">Niveau</label>  
+                            {{ form_widget(form.Niveau, {'attr': {'class': 'form-control rounded shadow text-dark', 'placeholder': 'Sélectionnez votre niveau'}}) }}  
+                            <div class="invalid-feedback d-block text-danger">  
+                                {{ form_errors(form.Niveau) }}  
+                            </div>  
+                        </div>  
+                    </div>  
+                </div>  
+                    
+                    <div class="col-xl-6">  
+                        <div class="dashboard__form__wraper">  
+                            <div class="dashboard__form__input"> 
+                                <label for="#">Prix du Cours</label>
+                                {{ form_widget(form.Prix, {'attr': {'class': 'form-control'}}) }}  
+                                <div class="invalid-feedback d-block text-danger">
+                                    {{ form_errors(form.Prix) }}
+                                </div>
+                            </div>  
+                        </div>  
+                    </div>  
+
+                    {% if cours.pdfFileName %}  
+                    <div class="row">  
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-12">  
+                            <div class="dashboard__form__wraper">  
+                                <div class="dashboard__form__input">  
+                                    <label for="#">Fichier PDF actuel</label>  
+                                    <a href="{{ asset('pdfs/' ~ cours.pdfFileName) }}" target="_blank" class="btn btn-primary">  
+                                        📄 Voir le PDF  
+                                    </a>  
+                                </div>  
+                            </div>  
+                        </div>  
+                    </div>  
+                    {% endif %}
+
+                {{ form_end(form) }}
+
+                               <div class="col-xl-4 col-lg-4 col-md-6 col-8">
+        <div class="create__course__bottom__button">
+            <button type="submit" class="btn btn-primary">
+                {{ button_label|default('Mise à jour') }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Delete Button -->
+    <div class="col-xl-4 col-lg-4 col-md-6 col-8">
+        <div class="create__course__bottom__button">
+            <form method="POST" action="{{ path('app_cours_delete', {'id': cours.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce cours ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cours.id) }}">
+                <button type="submit" class="btn btn-danger">Supprimer</button>
+            </form>
+        </div>
+    </div>
+</div>
+                                 
+                            </div>  
+
+                           
+                        </div>  
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+</div> 
+
+                 {%endblock%}

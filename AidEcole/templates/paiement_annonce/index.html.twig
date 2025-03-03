@@ -1,0 +1,31 @@
+{# templates/paiement_annonce/index.html.twig #}
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Prix</th>
+            <th>NumCarte</th>
+            <th>DateValidité</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for paiement in paiement_annonces %}
+            <tr>
+                <td>{{ paiement.id }}</td>
+                <td>{{ paiement.Prix }}</td>
+                <td>{{ paiement.numCarte }}</td>
+                <td>{{ paiement.dateValidite|date('Y-m-d') }}</td>
+                <td>
+                    <a href="{{ path('paiement_annonce', {'id': paiement.id}) }}" class="btn btn-primary">
+                        Payer avec Stripe
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

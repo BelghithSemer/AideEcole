@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Échec - Résultat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+        
+        :root {
+            --primary: #2d2d2d;
+            --secondary: #5a5a5a;
+            --accent: #ff4d4d;
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .failure-container {
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            width: 500px;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 2px solid var(--accent);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-15px); }
+            75% { transform: translateX(15px); }
+        }
+
+        .failure-header {
+            font-size: 3em;
+            margin: 20px 0;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
+        }
+
+        .cross-icon {
+            font-size: 80px;
+            color: var(--accent);
+            margin: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .failure-message {
+            font-size: 1.2em;
+            margin: 20px 0;
+            line-height: 1.5;
+            color: #aaa;
+        }
+
+        .crack {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .crack-line {
+            position: absolute;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            animation: crack 1s forwards;
+        }
+
+        @keyframes crack {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .retry-button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .retry-button:hover {
+            background: #ff3333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3);
+        }
+
+        .retry-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 150%; }
+        }
+
+        .falling-text {
+            position: absolute;
+            font-size: 1.5em;
+            color: var(--accent);
+            animation: fall 3s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Éléments de chute -->
+    <div class="falling-text" style="left: 10%">ÉCHEC</div>
+    <div class="falling-text" style="left: 30%">FAIL</div>
+    <div class="falling-text" style="left: 50%">NON</div>
+    <div class="falling-text" style="left: 70%">WRONG</div>
+    <div class="falling-text" style="left: 90%">✖</div>
+
+    <!-- Conteneur principal -->
+    <div class="failure-container">
+        <!-- Fissures -->
+        <div class="crack">
+            <div class="crack-line" style="top: 20%; left: -10%; width: 120%; height: 2px;"></div>
+            <div class="crack-line" style="top: 60%; left: -5%; width: 110%; height: 2px; animation-delay: 0.2s"></div>
+        </div>
+
+        <!-- Contenu -->
+        <div class="cross-icon">✖</div>
+        <h1 class="failure-header">ÉCHEC AU TEST</h1>
+        
+        <div class="failure-message">
+            <p>Résultat insuffisant - Score: {{score}}/{{totalQuestions}}</p>
+            <p>Vous n'avez pas atteint le seuil de réussite de 75%</p>
+            <p>Consultez vos erreurs ci-dessous :</p>
+        </div>
+
+
+        <button class="btn btn-primary" onclick="toggleResults()">Voir la correction</button>
+
+    </div>
+
+    
+    <div class="results-container hidden" id="resultsContainer">
+        <h2>Détails de la Correction</h2>
+        <table>
+            <tr>
+                <th>Question</th>
+                <th>Votre Réponse</th>
+                <th>Réponse Correcte</th>
+                <th>Statut</th>
+            </tr>
+            {% for result in details %}
+                <tr>
+                    <td>{{ result.question }}</td>
+                    <td>{{ result.userAnswer }}</td>
+                    <td>{{ result.correctAnswer }}</td>
+                    <td class="{{ result.correct ? 'correct' : 'incorrect' }}">
+                        {{ result.correct ? '✔️' : '❌' }}
+                    </td>
+                    
+                </tr>
+            {% endfor %}
+        </table>
+        <button class="btn btn-danger" onclick="toggleResults()">Masquer la correction</button>
+        <button class="btn btn-success" onclick="exportToPDF()">
+            <i class="fas fa-file-pdf"></i> Télécharger en PDF
+        </button>
+        
+    </div>
+    <script>
+        document.querySelectorAll('.crack-line').forEach((line, index) => {
+            setTimeout(() => {
+                line.style.width = '100%';
+            }, index * 200);
+        });
+
+        function createFallingText() {
+            const texts = ['FAIL', '✖', 'NON', 'ERR', '404', 'WRONG'];
+            const container = document.body;
+            
+            setInterval(() => {
+                const text = document.createElement('div');
+                text.className = 'falling-text';
+                text.style.left = Math.random() * 95 + '%';
+                text.textContent = texts[Math.floor(Math.random() * texts.length)];
+                text.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                container.appendChild(text);
+                
+                setTimeout(() => text.remove(), 3000);
+            }, 500);
+        }
+
+        window.onload = () => {
+            createFallingText();
+        };
+        function toggleResults() {
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.toggle('hidden');
+        }
+
+        
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+        
+            // Get the element to export
+            const element = document.getElementById('resultsContainer');
+        
+            // Use html2canvas to capture the element
+            html2canvas(element, {
+                scale: 2
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+        
+                // Calculate dimensions
+                const imgWidth = 190;
+                const pageHeight = 297; // A4 size
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let position = 10;
+        
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+        
+                pdf.save('Correction.pdf');
+            });
+        }
+        
+    </script>
+</body>
+</html>

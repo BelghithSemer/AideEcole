@@ -1,0 +1,172 @@
+{% extends 'home/quiz.html.twig' %}
+
+
+
+
+{% block body %}
+
+<head> 
+    <style>
+        body {
+            background: #f8f9fa;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+    
+        .dashboard__content__wraper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    
+        .card-container {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+    
+        .card {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 320px;
+            min-height: 250px;
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.2);
+            position: relative;
+            overflow: hidden;
+            color: white;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+    
+        .card:hover {
+            transform: translateY(-5px);
+        }
+    
+        .gift-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            opacity: 0.8;
+        }
+    
+        .card::before {
+            content: "";
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+    
+        .dates {
+            font-size: 12px;
+            text-align: center;
+            margin-top: 15px;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+    
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+    
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            margin: 15px 0;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+        }
+    
+        .code {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            text-align: center;
+            letter-spacing: 2px;
+            margin: 10px auto;
+            width: fit-content;
+        }
+    
+        .voucher-footer {
+            font-size: 10px;
+            text-align: center;
+            opacity: 0.8;
+            margin-top: 15px;
+        }
+    
+        .ribbon {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            background: #ffd700;
+            color: #333;
+            padding: 5px 20px;
+            transform: rotate(-45deg);
+            font-size: 12px;
+            font-weight: bold;
+            width: 120px;
+            text-align: center;
+        }
+    </style>
+</head>
+<div class="col-xl-9 col-lg-9 col-md-12">
+    <div class="dashboard__content__wraper">
+        <div class="dashboard__section__title mb-4">
+            <h4 class="mb-3">Mes Bons d'Achat</h4>
+            <div class="text-muted"></div>
+        </div>
+
+        <div class="card-container">
+            {% for bon in bons %}
+                <div class="card">
+                    <div class="ribbon">Nouveau</div>
+                    <img src="{{ asset('img/gift-icon.png') }}" class="gift-icon" alt="Cadeau">
+                    <div class="logo">
+                        Bon Cadeau<br>
+                        <span style="font-size:14px;"></span>
+                    </div>
+                    <div class="price">20%</div>
+                    <div class="code">CODE: {{ bon.code }}</div>
+                    <div class="dates">
+                        Valide du {{ bon.DateDeb|date('d/m/Y') }}<br>
+                        au {{ bon.dateFin|date('d/m/Y') }}
+                    </div>
+                    <div class="voucher-footer">*Conditions générales applicables</div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <div class="card border-dashed">
+                        <div class="card-body text-center py-5">
+                            <i class="bi bi-ticket-perforated fs-1 text-muted mb-3"></i>
+                            <p class="text-muted mb-0">Aucun bon d'achat disponible</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="voucher">
+    <div class="pattern"></div>
+    <div class="discount">50% OFF</div>
+    <h1>GIFT VOUCHER</h1>
+    <div class="decorative-line"></div>
+    <p>Lorem Ipsum Dolor Sit Amet</p>
+    <p>Exclusive Deals & Offers</p>
+    <div class="decorative-line"></div>
+    <p class="voucher-footer">Valid until: 31st December 2025</p>
+</div>
+{% endblock %}

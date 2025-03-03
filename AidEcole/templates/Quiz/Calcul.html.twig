@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultats</title>
+    <!-- Inclure les mêmes CSS que le quiz -->
+</head>
+<body>
+    <div class="container text-center py-5">
+        <h1 class="mb-4">Résultats du Quiz</h1>
+        <div class="result-card p-4 shadow-lg">
+            <h2 class="display-1 text-primary"></h2>
+            <p class="lead text-muted">
+                {{ score }} / {{ totalQuestions }} bonnes réponses
+            </p>
+            <a  class="btn btn-lg btn-primary mt-4">
+                Recommencer
+            </a>
+        </div>
+    </div>
+</body>
+</html>

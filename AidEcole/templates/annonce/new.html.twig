@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer une Annonce</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="form-container">
+                    <h2>Créer une Annonce</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="titre">Titre de l'annonce</label>
+                            <input type="text" class="form-control" id="titre" placeholder="Entrez le titre de l'annonce">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description de l'annonce</label>
+                            <textarea class="form-control" id="description" rows="3" placeholder="Entrez la description de l'annonce"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image de l'annonce</label>
+                            <input type="file" class="form-control-file" id="image">
+                        </div>
+                        <div class="form-group">
+                            <label for="nbrePlace">Nombre de places disponibles</label>
+                            <input type="number" class="form-control" id="nbrePlace" placeholder="Entrez le nombre de places">
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Localisation</label>
+                            <input type="text" class="form-control" id="location" placeholder="Entrez la localisation">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enregistrer l'annonce</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

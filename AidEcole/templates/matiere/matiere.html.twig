@@ -1,0 +1,33 @@
+<!DOCTYPE html>  
+<html lang="fr">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Changement d'Image selon la Matière</title>  
+</head>  
+<body>  
+    <h1>Choisissez une Matière</h1>  
+    <img id="matiereImage" src="{{ asset('images/default.jpg') }}" alt="Image de matière" style="width: 300px; height: 200px;">  
+    <select id="matiereSelect">  
+        <option value="math">Mathématiques</option>  
+        <option value="physique">Physique</option>  
+        <option value="chimie">Chimie</option>  
+    </select>  
+
+    <script>  
+        const imageMap = {  
+            math: '{{ asset('images/math.jpg') }}',  
+            physique: '{{ asset('images/physique.jpg') }}',  
+            chimie: '{{ asset('images/chimie.jpg') }}'  
+        };  
+
+        const matiereSelect = document.getElementById('matiereSelect');  
+        const matiereImage = document.getElementById('matiereImage');  
+
+        matiereSelect.addEventListener('change', (event) => {  
+            const selectedMatiere = event.target.value;  
+            matiereImage.src = imageMap[selectedMatiere] || '{{ asset('images/default.jpg') }}';  
+        });  
+    </script>  
+</body>  
+</html>

@@ -1,0 +1,119 @@
+{% extends 'home/quiz.html.twig' %}
+
+{% block title %}Profil - {{ app.user.nom }}{% endblock %}
+
+{% block body %}
+    <div class="main_wrapper overflow-hidden">
+        <div class="profile-area sp_top_100 sp_bottom_100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-md-2">
+                        <div class="profile-area__wraper">
+                            <div class="profile__heading">
+                                <h5 class="profile__title">Mon Profil</h5>
+                                <p class="profile__description">Vous pouvez mettre à jour vos informations si nécessaire.</p>
+                            </div>
+
+                            <div class="row">
+                                <!-- Nom -->
+                                <div class="col-xl-6">
+                                    <div class="profile__form">
+                                        <label>Nom :</label>
+                                        <input type="text" class="common__login__input" value="{{ app.user.nom }}" disabled>
+                                    </div>
+                                </div>
+
+                                <!-- Prénom -->
+                                <div class="col-xl-6">
+                                    <div class="profile__form">
+                                        <label>Prénom :</label>
+                                        <input type="text" class="common__login__input" value="{{ app.user.prenom }}" disabled>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-xl-6">
+                                    <div class="profile__form">
+                                        <label>Email :</label>
+                                        <input type="email" class="common__login__input" value="{{ app.user.email }}" disabled>
+                                    </div>
+                                </div>
+
+                                <!-- Téléphone -->
+                                <div class="col-xl-6">
+                                    <div class="profile__form">
+                                        <label>Téléphone :</label>
+                                        <input type="text" class="common__login__input" value="{{ app.user.tel }}" disabled>
+                                    </div>
+                                </div>
+
+                                <!-- Sexe -->
+                                <div class="col-xl-6">
+                                    <div class="profile__form">
+                                        <label>Sexe :</label>
+                                        <input type="text" class="common__login__input" value="{{ app.user.sexe }}" disabled>
+                                    </div>
+                                </div>
+
+                                <!-- Role spécifique -->
+                                {% if app.user.roles[0] == 'ROLE_RESPONSABLE_ETABLISSEMENT' %}
+                                    <!-- Nom d'établissement -->
+                                    <div class="col-xl-6">
+                                        <div class="profile__form">
+                                            <label>Nom de l’établissement :</label>
+                                            <input type="text" class="common__login__input" value="{{ app.user.nom_etabli }}" disabled>
+                                        </div>
+                                    </div>
+
+                                    <!-- RIB -->
+                                    <div class="col-xl-6">
+                                        <div class="profile__form">
+                                            <label>RIB bancaire :</label>
+                                            <input type="text" class="common__login__input" value="{{ app.user.rib }}" disabled>
+                                        </div>
+                                    </div>
+
+                                    <!-- Document de vérification -->
+                                    <div class="col-xl-6">
+                                        <div class="profile__form">
+                                            <label>Document de vérification :</label>
+                                            <input type="text" class="common__login__input" value="{{ app.user.doc_verif }}" disabled>
+                                        </div>
+                                    </div>
+                                {% elseif app.user.roles[0] == 'ROLE_PARENT' %}
+                                    <!-- Adresse -->
+                                    <div class="col-xl-6">
+                                        <div class="profile__form">
+                                            <label>Adresse :</label>
+                                            <input type="text" class="common__login__input" value="{{ app.user.local }}" disabled>
+                                        </div>
+                                    </div>
+
+                                    <!-- Code postal -->
+                                    <div class="col-xl-6">
+                                        <div class="profile__form">
+                                            <label>Code postal :</label>
+                                            <input type="text" class="common__login__input" value="{{ app.user.code_postal }}" disabled>
+                                        </div>
+                                    </div>
+                                {% elseif app.user.roles[0] == 'ROLE_CENTRE_DE_FORMATION' %}
+                                    <!-- Nom du centre de formation -->
+                                    <div class="col-xl-6">
+                                        <div class="profile__form">
+                                            <label>Nom du centre de formation :</label>
+                                            <input type="text" class="common__login__input" value="{{ app.user.nom_form }}" disabled>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="profile__actions">
+                                <a href=# class="default__button">Modifier le profil</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,199 @@
+{% extends 'home/quiz.html.twig' %}
+
+{% block body %}
+
+<div class="col-xl-9 col-lg-9 col-md-12">
+    <div class="dashboard_content_wraper">
+        <div class="dashboard_section_title">
+            <h4>My Profile</h4>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 aos-init aos-animate" data-aos="fade-up">
+                <ul class="nav about_buttonwrap dashboardbutton_wrap" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="default__button active me-2" data-bs-toggle="tab" data-bs-target="#projects__one" type="button" aria-selected="true" role="tab">Profile</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a href="{{ path('app_change_password') }}" class="default__button me-2">Password</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="default__button" data-bs-toggle="tab" data-bs-target="#projects__three" type="button" aria-selected="false" role="tab">Social Icon</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content tab_content_wrapper aos-init aos-animate" id="myTabContent" data-aos="fade-up">
+                <!-- Profile Tab -->
+                <div class="tab-pane fade active show" id="projects__one" role="tabpanel" aria-labelledby="projects__one">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            {{ form_start(form) }}
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="dashboard_form_wraper">
+                                            <div class="dashboard_form_input">
+                                                {{ form_row(form.email, {
+                                                    'attr': {'class': 'form-control', 'placeholder': user.email},
+                                                    'label': 'Email'
+                                                }) }}
+                                                {{ form_errors(form.email, {'attr': {'class': 'text-error'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="dashboard_form_wraper">
+                                            <div class="dashboard_form_input">
+                                                {{ form_row(form.nom, {
+                                                    'attr': {'class': 'form-control', 'placeholder': user.nom},
+                                                    'label': 'Nom'
+                                                }) }}
+                                                {{ form_errors(form.nom, {'attr': {'class': 'text-error'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="dashboard_form_wraper">
+                                            <div class="dashboard_form_input">
+                                                {{ form_row(form.prenom, {
+                                                    'attr': {'class': 'form-control', 'placeholder': user.prenom},
+                                                    'label': 'Prénom'
+                                                }) }}
+                                                {{ form_errors(form.prenom, {'attr': {'class': 'text-error'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="dashboard_form_wraper">
+                                            <div class="dashboard_form_input">
+                                                {{ form_row(form.tel, {
+                                                    'attr': {'class': 'form-control', 'placeholder': user.tel},
+                                                    'label': 'Téléphone'
+                                                }) }}
+                                                {{ form_errors(form.tel, {'attr': {'class': 'text-error'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% if form.nom_etabli is defined %}
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="dashboard_form_wraper">
+                                                <div class="dashboard_form_input">
+                                                    {{ form_row(form.nom_etabli, {
+                                                        'attr': {'class': 'form-control', 'placeholder': user.nomEtabli},
+                                                        'label': 'Nom de l\'établissement'
+                                                    }) }}
+                                                    {{ form_errors(form.nom_etabli, {'attr': {'class': 'text-error'}}) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="dashboard_form_wraper">
+                                                <div class="dashboard_form_input">
+                                                    {{ form_row(form.rib, {
+                                                        'attr': {'class': 'form-control', 'placeholder': user.rib},
+                                                        'label': 'RIB'
+                                                    }) }}
+                                                    {{ form_errors(form.rib, {'attr': {'class': 'text-error'}}) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="dashboard_form_wraper">
+                                                <div class="dashboard_form_input">
+                                                    {{ form_row(form.doc_verif, {
+                                                        'attr': {'class': 'form-control-file', 'placeholder': user.docVerif},
+                                                        'label': 'Document de vérification'
+                                                    }) }}
+                                                    {{ form_errors(form.doc_verif, {'attr': {'class': 'text-error'}}) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                {% if form.nom_form is defined %}
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="dashboard_form_wraper">
+                                                <div class="dashboard_form_input">
+                                                    {{ form_row(form.nom_form, {
+                                                        'attr': {'class': 'form-control', 'placeholder': user.nomForm},
+                                                        'label': 'Nom du centre de formation'
+                                                    }) }}
+                                                    {{ form_errors(form.nom_form, {'attr': {'class': 'text-error'}}) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                {% if form.code_postal is defined %}
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="dashboard_form_wraper">
+                                                <div class="dashboard_form_input">
+                                                    {{ form_row(form.code_postal, {
+                                                        'attr': {'class': 'form-control', 'placeholder': user.codePostal},
+                                                        'label': 'Code postal'
+                                                    }) }}
+                                                    {{ form_errors(form.code_postal, {'attr': {'class': 'text-error'}}) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="dashboard_form_wraper">
+                                                <div class="dashboard_form_input">
+                                                    {{ form_row(form.local, {
+                                                        'attr': {'class': 'form-control', 'placeholder': user.local},
+                                                        'label': 'Adresse'
+                                                    }) }}
+                                                    {{ form_errors(form.local, {'attr': {'class': 'text-error'}}) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <div class="col-xl-12">
+                                    <div class="dashboard_form_button mt-3">
+                                        <button type="submit" class="default__button">Update Info</button>
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Icon Tab -->
+                <div class="tab-pane fade" id="projects__three" role="tabpanel" aria-labelledby="projects__three">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="dashboard_form_wraper">
+                                <div class="dashboard_form_input">
+                                    <label>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook">
+                                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                                        </svg>
+                                        Facebook
+                                    </label>
+                                    <input type="text" class="form-control" placeholder="https://facebook.com/">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Repeat for other social icons (Twitter, LinkedIn, etc.) -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

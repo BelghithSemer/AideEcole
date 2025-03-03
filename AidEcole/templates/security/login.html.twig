@@ -1,0 +1,185 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Se Connecter | AidEcole</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Placez favicon.ico dans le répertoire racine -->
+
+    <!-- CSS ici -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/aos.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/icofont.min.css">
+    <link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        // Au chargement de la page ou lors du changement de thème, il est préférable d'ajouter en ligne dans le 'head' pour éviter le FOUC
+        if (localStorage.getItem("theme-color") === "dark" || (!("theme-color" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("is_dark");
+        }
+        if (localStorage.getItem("theme-color") === "light") {
+            document.documentElement.classList.remove("is_dark");
+        }
+    </script>
+</head>
+
+<body class="body__wrapper">
+    {% include 'components/navbar.html.twig' %}
+    <!-- Début de la zone de préchargement -->
+    <div id="back__preloader">
+        <div id="back__circle_loader"></div>
+        <div class="back__loader_logo">
+            <img loading="lazy" src="img/pre.png" alt="Préchargement">
+        </div>
+    </div>
+    <!-- Fin de la zone de préchargement -->
+
+    <!-- Début de la zone de mode sombre/clair -->
+    <div class="mode_switcher my_switcher">
+        <button id="light--to-dark-button" class="light align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon dark__mode" viewBox="0 0 512 512">
+                <path d="M160 136c0-30.62 4.51-61.61 16-88C99.57 81.27 48 159.32 48 248c0 119.29 96.71 216 216 216 88.68 0 166.73-51.57 200-128-26.39 11.49-57.38 16-88 16-119.29 0-216-96.71-216-216z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+            </svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon light__mode" viewBox="0 0 512 512">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M256 48v48M256 416v48M403.08 108.92l-33.94 33.94M142.86 369.14l-33.94 33.94M464 256h-48M96 256H48M403.08 403.08l-33.94-33.94M142.86 142.86l-33.94-33.94"/>
+                <circle cx="256" cy="256" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"/>
+            </svg>
+
+            <span class="light__mode">Light</span>
+            <span class="dark__mode">Dark</span>
+        </button>
+    </div>
+    <!-- Fin de la zone de mode sombre/clair -->
+
+    <main class="main_wrapper overflow-hidden">
+        <!-- Ombre fixe du thème -->
+        <div>
+            <div class="theme__shadow__circle"></div>
+            <div class="theme__shadow__circle shadow__right"></div>
+        </div>
+        <!-- Fin de l'ombre fixe du thème -->
+
+        <!-- Début de la section du fil d'Ariane -->
+        <div class="breadcrumbarea">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="breadcrumb__content__wraper" data-aos="fade-up">
+                            <div class="breadcrumb__title">
+                                <h2 class="heading">Se Connecter</h2>
+                            </div>
+                            <div class="breadcrumb__inner">
+                                <ul>
+                                    <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                                    <li>Se Connecter</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shape__icon__2">
+                <img loading="lazy" class="shape__icon__img shape__icon__img__1" src="img/herobanner/herobanner__1.png" alt="photo">
+                <img loading="lazy" class="shape__icon__img shape__icon__img__2" src="img/herobanner/herobanner__2.png" alt="photo">
+                <img loading="lazy" class="shape__icon__img shape__icon__img__3" src="img/herobanner/herobanner__3.png" alt="photo">
+                <img loading="lazy" class="shape__icon__img shape__icon__img__4" src="img/herobanner/herobanner__5.png" alt="photo">
+            </div>
+        </div>
+        <!-- Fin de la section du fil d'Ariane -->
+
+        <!-- Début de la section de connexion -->
+        <div class="loginarea sp_top_100 sp_bottom_100">
+            <div class="container">
+                <div class="row">
+                    <!-- Section du formulaire de connexion -->
+                    <div class="col-xl-8 col-md-8 offset-md-2" data-aos="fade-up">
+                        <div class="loginarea__wraper">
+                            <div class="login__heading">
+                                <h5 class="login__title">Se Connecter</h5>
+                                <p class="login__description">Vous n'avez pas encore de compte ? <a href="{{ path('app_register') }}">S'inscrire maintenant</a></p>
+                            </div>
+
+   
+    
+
+
+                     <form action="{{ path('app_login') }}" method="post">
+    <div class="login__form">
+        <label class="form__label">E-mail</label>
+        <input class="common__login__input" type="text" name="_username" placeholder="E-mail" required>
+    </div>
+    <div class="login__form">
+        <label class="form__label">Mot de passe</label>
+        <input class="common__login__input" type="password" name="_password" placeholder="Mot de passe" required>
+    </div>
+
+       {% if error %}
+            <div class="alert alert-danger">
+                Les informations sont invalides
+            </div>
+        {% endif %}
+    <div class="login__form d-flex justify-content-between flex-wrap gap-2">
+        <div class="form__check">
+            <input id="forgot" type="checkbox" name="_remember_me">
+            <label for="forgot"> Se souvenir de moi</label>
+        </div>
+        <div class="text-end login__form__link">
+            <a href="#">Mot de passe oublié ?</a>
+        </div>
+    </div>
+    <div class="login__button">
+        <button class="default__button" type="submit">Se Connecter</button>
+    </div>
+</form>
+ 
+
+                            <div class="login__social__option">
+                                <p>ou se connecter avec</p>
+                                <ul class="login__social__btn">
+                                    <li><a class="default__button login__button__1" href="#"><i class="icofont-facebook"></i> Facebook</a></li>
+                                    <li><a class="default__button" href="#"><i class="icofont-google-plus"></i> Google</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Fin de la section du formulaire de connexion -->
+                </div>
+            </div>
+        </div>
+        <!-- Fin de la section de connexion -->
+
+    </main>
+
+
+    <!-- JS ici -->
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.meanmenu.min.js"></script>
+    <script src="js/ajax-form.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/swiper-bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

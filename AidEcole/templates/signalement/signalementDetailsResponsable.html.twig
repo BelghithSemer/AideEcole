@@ -1,0 +1,167 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+   <!-- Mirrored from html.themewin.com/edurock-preview/edurock/course-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 07 Feb 2025 20:26:42 GMT -->
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>Signalement Details</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+      <!-- Place favicon.ico in the root directory -->
+      <!-- CSS here -->
+      <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/aos.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/icofont.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+      <script>
+         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+         if (localStorage.getItem("theme-color") === "dark" || (!("theme-color" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+           document.documentElement.classList.add("is_dark");
+         } 
+         if (localStorage.getItem("theme-color") === "light") {
+           document.documentElement.classList.remove("is_dark");
+         } 
+      </script>
+   </head>
+   <body class="body__wrapper">
+      <!-- pre loader area start -->
+      <div id="back__preloader">
+         <div id="back__circle_loader"></div>
+         <div class="back__loader_logo">
+            <img loading="lazy"  src="{{ asset('img/pre.png') }}" alt="Preload">
+         </div>
+      </div>
+      </div>
+      <!-- pre loader area end -->
+      <!-- Dark/Light area start -->
+      <div class="mode_switcher my_switcher">
+         <button id="light--to-dark-button" class="light align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon dark__mode" viewBox="0 0 512 512">
+               <path d="M160 136c0-30.62 4.51-61.61 16-88C99.57 81.27 48 159.32 48 248c0 119.29 96.71 216 216 216 88.68 0 166.73-51.57 200-128-26.39 11.49-57.38 16-88 16-119.29 0-216-96.71-216-216z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon light__mode" viewBox="0 0 512 512">
+               <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M256 48v48M256 416v48M403.08 108.92l-33.94 33.94M142.86 369.14l-33.94 33.94M464 256h-48M96 256H48M403.08 403.08l-33.94-33.94M142.86 142.86l-33.94-33.94"/>
+               <circle cx="256" cy="256" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"/>
+            </svg>
+            <span class="light__mode">Light</span>
+            <span class="dark__mode">Dark</span>
+         </button>
+      </div>
+      <!-- Dark/Light area end -->
+      <main class="main_wrapper overflow-hidden">
+         <!-- topbar__section__stert -->
+         <!-- topbar__section__end -->
+         <!-- headar section start -->
+         <!-- header section end -->
+         <!-- theme fixed shadow -->
+         <div>
+            <div class="theme__shadow__circle"></div>
+            <div class="theme__shadow__circle shadow__right"></div>
+         </div>
+         <!-- theme fixed shadow -->
+         <!-- breadcrumbarea__section__start -->
+         <div class="breadcrumbarea">
+            <div class="container">
+               <div class="row">
+                  <div class="col-xl-12">
+                     <div class="breadcrumb__content__wraper" data-aos="fade-up">
+                        <div class="breadcrumb__title">
+                           <h2 class="heading">Signalement-Details</h2>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="shape__icon__2">
+               <img loading="lazy"  class=" shape__icon__img shape__icon__img__1" src="{{ asset('img/herobanner/herobanner__1.png') }}" alt="photo">
+               <img loading="lazy"  class=" shape__icon__img shape__icon__img__2" src="{{ asset('img/herobanner/herobanner__2.png') }}" alt="photo">
+               <img loading="lazy"  class=" shape__icon__img shape__icon__img__3" src="{{ asset('img/herobanner/herobanner__3.png') }}" alt="photo">
+               <img loading="lazy"  class=" shape__icon__img shape__icon__img__4" src="{{ asset('img/herobanner/herobanner__5.png') }}" alt="photo">
+            </div>
+         </div>
+         <!-- breadcrumbarea__section__end-->
+         <div class="blogarea__2 sp_top_100 sp_bottom_100">
+         <div class="container">
+           <div class="row">
+    <div class="col-xl-8 col-lg-8">
+        <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="featurearea__details__img">
+                <div class="swiper details__gallery__big">
+                    <div class="featurearea__big__img swiper-wrapper">
+                        {% for image in signalement.images %}
+                        <div class="featurearea__single__big__img swiper-slide col-xl-6 col-lg-6 col-md-6">
+                            <img loading="lazy" 
+                                 src="{{ asset('uploads/signalement/' ~ image) }}" 
+                                 alt="Signalement Image" 
+                                 style="width: 100%; height: auto;">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div thumbsSlider="" class="swiper details__gallery">
+                    <div class="featurearea__thumb__img swiper-wrapper">
+                        {% for image in signalement.images %}
+                        <div class="featurearea__single__thumb__img swiper-slide">
+                            <img loading="lazy" 
+                                 src="{{ asset('uploads/signalement/' ~ image) }}" 
+                                 alt="Signalement Thumbnail">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="blog__details__content__wraper">
+            <div class="course__details__heading" data-aos="fade-up">
+                <h3>{{ signalement.titre }}</h3>
+            </div>
+            <div class="course__details__price" data-aos="fade-up">
+                <ul>
+                    <li>
+                        <div class="course__price">
+                            État : <span>{{ signalement.etat }}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <h4 class="sidebar__title" data-aos="fade-up">Description du Signalement</h4>
+            <div class="course__details__wraper" data-aos="fade-up">
+                <p>{{ signalement.description }}</p>
+            </div>
+            <a href="{{ path('app_signalement_index') }}" class="btn btn-secondary">Retour à la liste</a>
+            <a href="{{ path('app_signalement_edit', {'id': signalement.id}) }}" class="btn btn-primary">modifier</a>
+        </div>
+    </div>
+    
+</div>
+
+         </div>
+         <!-- footer__section__start -->
+         <!-- footer__section__end -->
+      </main>
+      <!-- JS here -->
+      <script src="{{ asset('js/vendor/modernizr-3.5.0.min.js') }}"></script>
+      <script src="{{ asset('js/vendor/jquery-3.6.0.min.js') }}"></script>
+      <script src="{{ asset('js/popper.min.js') }}"></script>
+      <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+      <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
+      <script src="{{ asset('js/slick.min.js') }}"></script>
+      <script src="{{ asset('js/jquery.meanmenu.min.js') }}"></script>
+      <script src="{{ asset('js/ajax-form.js') }}"></script>
+      <script src="{{ asset('js/wow.min.js') }}"></script>
+      <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+      <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
+      <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+      <script src="{{ asset('js/waypoints.min.js') }}"></script>
+      <script src="{{ asset('js/jquery.counterup.min.js') }}"></script>
+      <script src="{{ asset('js/plugins.js') }}"></script>
+      <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
+      <script src="{{ asset('js/main.js') }}"></script>
+   </body>
+   <!-- Mirrored from html.themewin.com/edurock-preview/edurock/course-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 07 Feb 2025 20:26:45 GMT -->
+</html>

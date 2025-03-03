@@ -1,0 +1,11 @@
+<div style="padding: 1rem; background-color: #f9f9f9; border-radius: 8px;">
+    <h4 style="margin: 0 0 1rem 0;">Modifier le commentaire</h4>
+    <form method="POST" action="{{ path('app_commentaire_update', {'id': commentaire.id}) }}" style="display: flex; flex-direction: column; gap: 1rem;">
+        {{ form_start(form) }}
+        {{ form_widget(form.Description) }}
+        <button type="submit" style="background-color: #28a745; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+            Enregistrer les modifications
+        </button>
+        {{ form_end(form) }}
+    </form>
+</div>

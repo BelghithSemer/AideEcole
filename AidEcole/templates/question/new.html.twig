@@ -1,0 +1,25 @@
+<meta charset="UTF-8">
+
+<form method="post">
+    {{ form_start(form) }}
+    
+    <div>
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+    </div>
+    
+    <div>
+        {{ form_label(form.options) }}
+        {{ form_row(form.options) }}
+    </div>
+
+    <div>
+        {{ form_label(form.correctAnswer) }}
+        {{ form_widget(form.correctAnswer) }}
+    </div>
+
+<div>
+    <button type="submit">Submit</button>
+
+    {{ form_end(form) }}
+</form>

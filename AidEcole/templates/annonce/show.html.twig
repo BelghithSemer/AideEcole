@@ -1,0 +1,67 @@
+{% extends 'home/home.html.twig' %}
+
+{%  block body   %}
+
+<div class="blogarea__2 sp_top_100 sp_bottom_100">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+
+
+                    
+
+            
+
+
+                <div class="blog__content__wraper__2" data-aos="fade-up">
+                    <div class="blogarae__img__2">
+                                        {% if annonce.image %}
+                                            <img loading="lazy" src="{{ asset('imagesAnnonces/' ~ annonce.image) }}" alt="blog" style="width: 200px; height: auto;">
+                                        {% else %}
+                                            Pas d'image
+                                        {% endif %}
+                        <div class="blogarea__date__2">
+                            <span>24</span>
+                            <span class="blogarea__month">Feb</span>
+                        </div>
+                    </div>
+                    <div class="blogarea__text__wraper__2">
+                        <div class="blogarea__heading__2">
+                            <h3><a href="blog-details.html">{{annonce.titre}}</a></h3>
+                        </div>
+                        <div class="blogarea__list__2">
+                            
+                        </div>
+                        <div class="blogarea__paragraph">
+                            <p>{{annonce.description}}</p>
+                        </div>
+                        <div class="blogarea__button__2">
+                        
+
+
+
+
+</div>
+
+
+                </div>
+           
+        </div>
+        
+
+
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<style>
+.annonce-image {
+    width: 200px; /* Adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+    
+  {% extends "home/quiz.html.twig" %}
+
+{% block body %}  
+    
+                <div class="col-xl-9 col-lg-9 col-md-12">
+                              <!-- contact__form__start -->
+        <div class="contact__from__wraper sp_bottom_100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="contact__form__inner">
+                            <div class="contact__form__heading" data-aos="fade-up">
+                                <h3>Reclamations</h3>
+                                <p>Les champs obligatoires sont marqués * </p>
+                            </div>
+
+                             
+ 
+    {{ form_start(form) }} 
+    <div class="row">  
+
+        <div class="col-xl-6" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.nom) }} <!-- Ajout du label -->  
+                {{ form_widget(form.nom) }}  
+                <div class="contact__icon">  
+                    <i class="icofont-businessman"></i>  
+                </div>  
+            </div>  
+        </div>  
+
+        <div class="col-xl-6" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.prenom) }} <!-- Ajout du label -->  
+                {{ form_widget(form.prenom) }}                                          
+                <div class="contact__icon">  
+                    <i class="icofont-businessman"></i>  
+                </div>  
+            </div>  
+        </div>  
+
+        <div class="col-xl-6" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.Sujet) }} <!-- Ajout du label -->  
+                {{ form_widget(form.Sujet) }}                                         
+                <div class="contact__icon">  
+                    <i class="icofont-envelope"></i>  
+                </div>  
+            </div>  
+        </div>  
+
+    
+
+        
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.Description) }} <!-- Ajout du label -->  
+                {{ form_widget(form.Description) }}  
+                <div class="contact__icon">  
+                    <i class="icofont-comment"></i>  
+                </div>  
+            </div>  
+        </div>   
+
+        
+
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__button">  
+            <button type="submit" value="submit" class="default__button" name="submit">Enregistrer</button>
+                <p class="form-messege"></p>  
+            </div>  
+        </div>  
+        {% if form.vars.errors|length > 0 %}  
+            <div class="col-xl-12" data-aos="fade-up">  
+                <div class="alert alert-danger">  
+                    <ul>  
+                        {% for error in form.vars.errors %}  
+                            <li>{{ error.message }}</li>  
+                        {% endfor %}  
+                    </ul>  
+                </div>  
+            </div>  
+        {% endif %}
+    </div>  
+
+{{ form_end(form) }}
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+{% endblock %}

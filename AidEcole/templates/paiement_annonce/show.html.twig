@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PaiementAnnonce{% endblock %}
+
+{% block body %}
+    <h1>PaiementAnnonce</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ paiement_annonce.id }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ paiement_annonce.Prix }}</td>
+            </tr>
+            <tr>
+                <th>NumCarte</th>
+                <td>{{ paiement_annonce.numCarte }}</td>
+            </tr>
+            <tr>
+                <th>DateValidité</th>
+                <td>{{ paiement_annonce.DateValidité ? paiement_annonce.DateValidité|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_paiement_annonce_index') }}">back to list</a>
+
+    <a href="{{ path('app_paiement_annonce_edit', {'id': paiement_annonce.id}) }}">edit</a>
+
+    {{ include('paiement_annonce/_delete_form.html.twig') }}
+{% endblock %}

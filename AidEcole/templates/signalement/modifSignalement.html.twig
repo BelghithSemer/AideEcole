@@ -1,0 +1,150 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ajout Signalement</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/aos.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/icofont.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <script>
+        if (localStorage.getItem("theme-color") === "dark" || (!("theme-color" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("is_dark");
+        }
+        if (localStorage.getItem("theme-color") === "light") {
+            document.documentElement.classList.remove("is_dark");
+        }
+    </script>
+</head>
+
+<body class="body__wrapper">
+    <!-- pre loader area start -->
+    <div id="back__preloader">
+        <div id="back__circle_loader"></div>
+        <div class="back__loader_logo">
+            <img loading="lazy" src="../img/pre.png" alt="Preload">
+        </div>
+    </div>
+    <!-- pre loader area end -->
+    <!-- Dark/Light area start -->
+    <div class="mode_switcher my_switcher">
+        <button id="light--to-dark-button" class="light align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon dark__mode" viewBox="0 0 512 512">
+                <path d="M160 136c0-30.62 4.51-61.61 16-88C99.57 81.27 48 159.32 48 248c0 119.29 96.71 216 216 216 88.68 0 166.73-51.57 200-128-26.39 11.49-57.38 16-88 16-119.29 0-216-96.71-216-216z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon light__mode" viewBox="0 0 512 512">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M256 48v48M256 416v48M403.08 108.92l-33.94 33.94M142.86 369.14l-33.94 33.94M464 256h-48M96 256H48M403.08 403.08l-33.94-33.94M142.86 142.86l-33.94-33.94" />
+                <circle cx="256" cy="256" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" />
+            </svg>
+            <span class="light__mode">Light</span>
+            <span class="dark__mode">Dark</span>
+        </button>
+    </div>
+    <!-- Dark/Light area end -->
+
+    <main class="main_wrapper overflow-hidden">
+        <div class="dashboardarea sp_bottom_100">
+            <div class="container-fluid full__width__padding">
+                <div class="dashboard">
+                    <div class="container-fluid full__width__padding">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-3 col-md-12">
+                                <div class="dashboard__inner sticky-top">
+                                    <div class="dashboard__nav">
+                                        <ul>
+                                            <li><a href="admin-dashboard.html">Dashboard</a></li>
+                                            <li><a href="admin-profile.html">My Profile</a></li>
+                                            <li><a href="admin-message.html">Messages <span class="dashboard__label">12</span></a></li>
+                                            <li><a href="admin-course.html">Courses</a></li>
+                                            <li><a href="admin-reviews.html">Reviews</a></li>
+                                            <li><a href="admin-quiz-attempts.html">Quiz Attempts</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-9 col-md-12">
+                                <div class="dashboard__content__wraper">
+                                    <div class="dashboard__section__title">
+                                        <h4>modifier Signalement</h4>
+                                        <a href="{{ path('app_signalement_index') }}" class="default__button">Liste Signalement</a>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="dashboard__form__wraper">
+                                                        {{ form_start(form) }}
+                                                        <div class="dashboard__form__input">
+                                                            {{ form_label(form.titre) }}
+                                                            {{ form_widget(form.titre) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="dashboard__form__wraper">
+                                                        <div class="dashboard__form__input">
+                                                            {{ form_label(form.description) }}
+                                                            {{ form_widget(form.description) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="dashboard__form__wraper">
+                                                        <div class="dashboard__form__input">
+                                                            {{ form_label(form.prix) }}
+                                                            {{ form_widget(form.prix) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="dashboard__form__wraper">
+                                                        <div class="dashboard__form__input">
+                                                            {{ form_label(form.images) }}
+                                                            {{ form_widget(form.images) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="dashboard__form__wraper">
+                                                        <div class="dashboard__form__input">
+                                                            {{ form_label(form.etat) }}
+                                                            {{ form_widget(form.etat) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12">
+                                                    <div class="dashboard__form__button">
+                                                        <button class="default__button" type="submit">Envoyer</button>
+                                                    </div>
+                                                </div>
+                                                {{ form_end(form) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ asset('js/vendor/modernizr-3.5.0.min.js') }}"></script>
+    <script src="{{ asset('js/vendor/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+{# templates/annonce/Listesdannonces.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des annonces{% endblock %}
+
+{% block body %}
+    <h1>Liste des annonces</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Nombre de places</th>
+                <th>Localisation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for annonce in annonces %}
+            <tr>
+                <td>{{ annonce.titre }}</td>
+                <td>{{ annonce.description }}</td>
+                <td>
+                    {% if annonce.image %}
+                        <img src="{{ asset('imagesAnnonces/' ~ annonce.image) }}" alt="{{ annonce.titre }}" width="100">
+                    {% else %}
+                        Pas d'image
+                    {% endif %}
+                </td>
+                <td>{{ annonce.nbrePlace }}</td>
+                <td>{{ annonce.location }}</td>
+                <td>
+                    <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}">Voir</a>
+                    <a href="{{ path('app_annonce_edit', {'id': annonce.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucune annonce trouvée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_annonce_new') }}">Créer une nouvelle annonce</a>
+{% endblock %}

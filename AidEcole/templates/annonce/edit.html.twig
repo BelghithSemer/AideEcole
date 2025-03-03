@@ -1,0 +1,52 @@
+{% extends 'home/quiz.html.twig' %}  
+
+{% block body %}  
+
+      <div class="col-xl-9 col-lg-9 col-md-12">  
+    <div class="dashboard__content__wraper">  
+        <div class="form-container">
+            <h2>{% if annonce.id %}Modifier Annonce{% else %}Créer une Annonce{% endif %}</h2>
+            
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+
+            <div class="form-group">
+                <label for="titre">Titre de l'annonce</label>
+                {{ form_widget(form.Titre, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le titre de l\'annonce'}}) }}
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description de l'annonce</label>
+                {{ form_widget(form.Description, {'attr': {'class': 'form-control', 'rows': '3', 'placeholder': 'Entrez la description de l\'annonce'}}) }}
+            </div>
+
+            <div class="form-group">
+                <label for="image">Image de l'annonce</label>
+                {{ form_widget(form.Image, {'attr': {'class': 'form-control-file'}}) }}
+            </div>
+
+            <div class="form-group">
+                <label for="nbrePlace">Nombre de places disponibles</label>
+                {{ form_widget(form.NbrePlace, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le nombre de places'}}) }}
+            </div>
+
+            <div class="form-group">
+                <label for="location">Localisation</label>
+                {{ form_widget(form.Location, {'attr': {'class': 'form-control', 'placeholder': 'Entrez la localisation'}}) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                {% if annonce.id %}Mettre à jour{% else %}Enregistrer l'annonce{% endif %}
+            </button>
+
+            {{ form_end(form) }}
+
+            <a href="{{ path('app_annonce_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+
+            {% if annonce.id %}
+                {{ include('annonce/_delete_form.html.twig') }}
+            {% endif %}
+        </div>
+    </div>  
+</div>
+   
+{% endblock %}

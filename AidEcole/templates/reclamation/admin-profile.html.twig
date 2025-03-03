@@ -1,0 +1,135 @@
+
+
+{% extends "home/quiz.html.twig" %}
+
+{% block body %}
+<div class="col-xl-9 col-lg-9 col-md-12">
+                    <div class="dashboard__content__wraper">
+ 
+                          <!-- contact__form__start -->
+        <div class="contact__from__wraper sp_bottom_100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="contact__form__inner">
+                            <div class="contact__form__heading" data-aos="fade-up">
+                                <h3>Reclamations</h3>
+                                <p>Les champs obligatoires sont marqués * </p>
+                            </div>
+
+                             
+ 
+  {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}   
+<div class="row">  
+
+    <div class="col-xl-6" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.nom) }}  
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control ' ~ (form.nom.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}  
+
+            {% if form.nom.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.nom) }}  
+                </div>  
+            {% endif %}  
+
+            <div class="contact__icon">  
+                <i class="icofont-businessman"></i>  
+            </div>  
+        </div>  
+    </div>  
+
+    <div class="col-xl-6" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.prenom) }}  
+            {{ form_widget(form.prenom, {'attr': {'class': 'form-control ' ~ (form.prenom.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}  
+
+            {% if form.prenom.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.prenom) }}  
+                </div>  
+            {% endif %}  
+
+            <div class="contact__icon">  
+                <i class="icofont-businessman"></i>  
+            </div>  
+        </div>  
+    </div>  
+
+    <div class="col-xl-6" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.Sujet) }}   
+            {{ form_widget(form.Sujet, {'attr': {'class': 'form-control ' ~ (form.Sujet.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}  
+
+            {% if form.Sujet.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.Sujet) }}  
+                </div>  
+            {% endif %}  
+
+            <div class="contact__icon">  
+                <i class="icofont-envelope"></i>  
+            </div>  
+        </div>  
+    </div>  
+
+    <div class="col-xl-12" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
+            {{ form_label(form.Description) }}  
+            {{ form_widget(form.Description, {'attr': {'class': 'form-control ' ~ (form.Description.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}  
+
+            {% if form.Description.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.Description) }}  
+                </div>  
+            {% endif %}  
+
+            <div class="contact__icon">  
+                <i class="icofont-comment"></i>  
+            </div>  
+        </div>  
+    </div>   
+
+    <div class="col-xl-12" data-aos="fade-up">  
+        <div class="contact__button">  
+            <button type="submit" value="submit" class="default__button" name="submit">Envoyer le message</button>  
+        </div>  
+    </div>  
+
+</div>  
+
+{{ form_end(form) }}  
+
+<script>  
+document.querySelector('form').addEventListener('submit', function (event) {  
+    var isValid = true;  
+
+    this.querySelectorAll('input[required], textarea[required]').forEach(function (input) {  
+        if (!input.value) {  
+            isValid = false;  
+            input.setCustomValidity(''); // Réinitialise le message d'erreur  
+        } else {  
+            input.setCustomValidity(''); // Réinitialise au cas où il y aurait un message  
+        }  
+    });  
+
+    if (!isValid) {  
+        event.preventDefault(); // Empêche l'envoi du formulaire si ce n'est pas valide  
+    }  
+});  
+</script>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+{% endblock %}
+
+                            

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultats du Quiz{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Résultats du Quiz</h1>
+    
+    <div class="alert alert-info">
+        <h4>Score final : {{ score }}/{{ totalQuestions }}</h4>
+        {% if score >= 75 %}
+            <p class="mb-0">Bravo, vous avez réussi le test !</p>
+        {% else %}
+            <p class="mb-0">Résultat insuffisant, vous n'avez pas atteint le seuil de réussite de 75%</p>
+        {% endif %}
+    </div>
+    <div class="results-list">
+        {% for result in details %}
+        <div class="card mb-3 {% if result.correct %}border-success{% else %}border-danger{% endif %}">
+            <div class="card-header {% if result.correct %}bg-success text-white{% else %}bg-danger text-white{% endif %}">
+                Question {{ loop.index }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ result.question }}</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="card-text">
+                            <strong>Votre réponse :</strong><br>
+                            {{ result.userAnswer }}
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="card-text">
+                            <strong>Bonne réponse :</strong><br>
+                            {{ result.correctAnswer }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer {% if result.correct %}bg-success text-white{% else %}bg-danger text-white{% endif %}">
+                {% if result.correct %}
+                    ✓ Réponse correcte
+                {% else %}
+                    ✗ Réponse incorrecte
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .results-list .card-header {
+        font-weight: bold;
+    }
+    .card-text {
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+    }
+</style>
+{% endblock %}

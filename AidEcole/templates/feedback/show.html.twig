@@ -1,0 +1,130 @@
+         {% extends 'home/quiz.html.twig' %}
+
+{% block body  %}
+         
+         <div class="col-xl-9 col-lg-9 col-md-12">
+                    <div class="dashboard__content__wraper">
+          <!-- contact__form__start -->
+        <div class="contact__from__wraper sp_bottom_100">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="contact__form__inner">
+                    <div class="contact__form__heading" data-aos="fade-up">
+                        <h3>Détails du Feedback</h3>
+                        <p>Voici les détails du feedback sélectionné.</p>
+                    </div>
+
+                    <!-- Tableau en lecture seule -->
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Nom</th>
+                                <td>{{ feedback.nom }}</td>
+                            </tr>
+                            <tr>
+                                <th>Prénom</th>
+                                <td>{{ feedback.prenom }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ feedback.mail }}</td>
+                            </tr>
+                            <tr>
+                                <th>Note</th>
+                                <td>{{ feedback.note }}</td>
+                            </tr>
+                            <tr>
+                                <th>Niveau d'expérience</th>
+                                <td>{{ feedback.experienceLevel }}</td>
+
+                            </tr>
+                            <tr>
+                                <th>Recommander la plateforme</th>
+                                <td>{{ feedback.recommendPlatform ? 'Oui' : 'Non' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fréquence d'utilisation</th>
+                                <td>{{ feedback.usageFrequency }}</td>
+                            </tr>
+                            {% if 'ROLE_PARENT' in user.roles %}
+                                <tr>
+                                    <th>Qualité des cours et des quiz</th>
+                                    <td>{{ feedback.avis1 }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Satisfaction des formations proposées</th>
+                                    <td>{{ feedback.avis2 }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Réponse aux besoins de l'enfant</th>
+                                    <td>{{ feedback.avis3 }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if 'ROLE_DONATEUR' in user.roles %}
+                                <tr>
+                                    <th>Processus de don</th>
+                                    <td>{{ feedback.avis4 }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Progrès dans l'amélioration des écoles</th>
+                                    <td>{{ feedback.avis5 }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if 'ROLE_CENTRE_FORMATION' in user.roles %}
+                                <tr>
+                                    <th>Processus de publication d'une annonce</th>
+                                    <td>{{ feedback.avis6 }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Atteinte du public cible</th>
+                                    <td>{{ feedback.avis7 }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if 'ROLE_RESPONSABLE_ETABLISSEMENT' in user.roles %}
+                                <tr>
+                                    <th>Soumission d'un signalement</th>
+                                    <td>{{ feedback.avis8 }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Gestion des problèmes ou incidents</th>
+                                    <td>{{ feedback.avis9 }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if 'ROLE_ENSIEGNANT' in user.roles %}
+                                <tr>
+                                    <th>Gestion et organisation des cours et quiz</th>
+                                    <td>{{ feedback.avis10 }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Outils de suivi des performances des élèves</th>
+                                    <td>{{ feedback.avis11 }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <th>commentaires et suggestions d'amélioration</th>
+                                <td>{{ feedback.avis12 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                   <div class="col-xl-12 d-flex gap-2" data-aos="fade-up">
+    <!-- Bouton "Retour à la liste" -->
+    <div class="contact__button">
+        <a href="{{ path('app_feedback_index') }}" class="default__button">Retour à la liste</a>
+    </div>
+    <!-- Bouton "Edit" -->
+    <div class="contact__button">
+        <a href="{{ path('app_feedback_edit', {'id': feedback.id}) }}" class="default__button d-flex align-items-center gap-2">
+            <i class="icofont-edit"></i> Modifier
+        </a>
+    </div>
+</div>
+        </div>
+    </div>
+</div>
+        <!-- contact__form__end-->
+
+        </div>
+                </div>
+{% endblock %}  

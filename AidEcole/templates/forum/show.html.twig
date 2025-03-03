@@ -1,0 +1,47 @@
+{% extends 'home/quiz.html.twig' %}  
+
+{% block title %}Forum{% endblock %}  
+
+{% block body %}  
+<div class="col-xl-9 col-lg-9 col-md-12">  
+    <div class="dashboard__content__wraper">  
+        <div class="form-container">  
+            <h2>Détails du Forum</h2>  
+
+            <table class="table">  
+                <tbody>  
+                    <tr>  
+                        <th>ID</th>  
+                        <td>{{ forum.id }}</td>  
+                    </tr>  
+                    <tr>  
+                        <th>Date</th>  
+                        <td>{{ forum.Date ? forum.Date|date('Y-m-d') : '' }}</td>  
+                    </tr>  
+                    <tr>  
+                        <th>Questions</th>  
+                        <td>{{ forum.Questions }}</td>  
+                    </tr>  
+                    <tr>  
+                        <th>Description</th>  
+                        <td>{{ forum.Description }}</td>  
+                    </tr>  
+                    <tr>  
+                        <th>Images</th>  
+                        <td>{{ forum.Images }}</td>  
+                    </tr>  
+                    <tr>  
+                        <th>Catégorie</th>  
+                        <td>{{ forum.Categorie }}</td>  
+                    </tr>  
+                </tbody>  
+            </table>  
+
+            <a href="{{ path('app_forum_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>  
+            <a href="{{ path('app_forum_edit', {'id': forum.id}) }}" class="btn btn-primary mt-3">Modifier</a>  
+
+            
+        </div>  
+    </div>  
+</div>  
+{% endblock %}

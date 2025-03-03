@@ -1,0 +1,118 @@
+{% extends "home/quiz.html.twig" %}  
+{% block body %}  
+<div class="col-xl-9 col-lg-9 col-md-12">  
+    <div class="dashboard__content__wraper">  
+        <div class="dashboard__section__title">  
+            <h4>Création d'un nouveau Cours</h4>  
+        </div>  
+        
+        <div class="row">  
+            <div class="col-xl-12 aos-init aos-animate" data-aos="fade-up">  
+                <ul class="nav about__button__wrap dashboard__button__wrap" id="myTab" role="tablist">  
+                    <li class="nav-item" role="presentation">  
+                        <button class="single__tab__link active" data-bs-toggle="tab"  
+                            data-bs-target="#projects__one" type="button" aria-selected="true"  
+                            role="tab">Informations de Cours</button>  
+                    </li>  
+                </ul>  
+            </div>  
+
+            <div class="tab-content tab__content__wrapper aos-init aos-animate" id="myTabContent" data-aos="fade-up">  
+                <div class="tab-pane fade active show" id="projects__one" role="tabpanel">  
+                    <div class="row">  
+                        <div class="col-xl-12">  
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="dashboard_form_wraper">
+                            <div class="dashboard_form_input">
+                                <label class="fw-bold">{{ form_label(form.Titre) }}</label>
+                                {{ form_widget(form.Titre, {'attr': {'class': 'form-control'}}) }}
+                                <div class="invalid-feedback d-block text-danger">
+                                    {{ form_errors(form.Titre) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6">  
+    <div class="dashboard_form_wrapper">  
+        <div class="dashboard_form_input">  
+            <label class="fw-bold text-dark" for="{{ form.Matiere.vars.id }}">{{ form_label(form.Matiere) }}</label>  
+            {{ form_widget(form.Matiere, {'attr': {'class': 'form-control rounded shadow text-dark', 'placeholder': 'Entrez votre matière'}}) }}  
+            <div class="invalid-feedback d-block text-danger">  
+                {{ form_errors(form.Matiere) }}  
+            </div>  
+        </div>  
+    </div>  
+</div>
+
+                    <div class="col-xl-6">
+                        <div class="dashboard_form_wraper">
+                            <div class="dashboard_form_input">
+                                <label class="fw-bold">{{ form_label(form.Description) }}</label>
+                                {{ form_widget(form.Description, {'attr': {'class': 'form-control'}}) }}
+                                <div class="invalid-feedback d-block text-danger">
+                                    {{ form_errors(form.Description) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   <div class="col-xl-6">  
+    <div class="dashboard_form_wrapper">  
+        <div class="dashboard_form_input">  
+            <label class="fw-bold text-dark" for="{{ form.Niveau.vars.id }}">{{ form_label(form.Niveau) }}</label>  
+            {{ form_widget(form.Niveau, {'attr': {'class': 'form-control rounded shadow text-dark', 'placeholder': 'Sélectionnez votre niveau'}}) }}  
+            <div class="invalid-feedback d-block text-danger">  
+                {{ form_errors(form.Niveau) }}  
+            </div>  
+        </div>  
+    </div>  
+</div>
+                    <div class="col-xl-6">
+    <div class="dashboard_form_wraper">
+        <div class="dashboard_form_input">
+            <label class="fw-bold">{{ form_label(form.pdfFile) }}</label>
+            <div class="custom-file">
+                {{ form_widget(form.pdfFile, {'attr': {'class': 'form-control'}}) }}
+                <small class="form-text text-muted">Format accepté : .pdf (max 20Mo)</small>
+                <div class="invalid-feedback d-block text-danger">
+                    {{ form_errors(form.pdfFile) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                    <div class="col-xl-6">
+                        <div class="dashboard_form_wraper">
+                            <div class="dashboard_form_input">
+                                <label class="fw-bold">{{ form_label(form.Prix) }}</label>
+                                {{ form_widget(form.Prix, {'attr': {'class': 'form-control'}}) }}
+                                <div class="invalid-feedback d-block text-danger">
+                                    {{ form_errors(form.Prix) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-8">
+                        <div class="create_course_bottom_button">
+                            <button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+                        </div>
+                    </div>
+                </div>
+
+                {{ form_end(form) }}  
+                        </div>  
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+</div>   
+{% endblock %}

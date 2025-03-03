@@ -1,0 +1,356 @@
+
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+
+<!-- Mirrored from html.themewin.com/edurock-preview/edurock/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 07 Feb 2025 20:26:50 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Contact | Edurock - Education LMS Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- SS here -->    
+     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/aos.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/icofont.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.getItem("theme-color") === "dark" || (!("theme-color" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.classList.add("is_dark");
+        } 
+        if (localStorage.getItem("theme-color") === "light") {
+          document.documentElement.classList.remove("is_dark");
+        } 
+    </script>
+
+</head>
+
+
+<body class="body__wrapper">
+    
+
+    <!-- Dark/Light area start -->
+    <div class="mode_switcher my_switcher">
+        <button id="light--to-dark-button" class="light align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon dark__mode" viewBox="0 0 512 512"><path d="M160 136c0-30.62 4.51-61.61 16-88C99.57 81.27 48 159.32 48 248c0 119.29 96.71 216 216 216 88.68 0 166.73-51.57 200-128-26.39 11.49-57.38 16-88 16-119.29 0-216-96.71-216-216z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon light__mode" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M256 48v48M256 416v48M403.08 108.92l-33.94 33.94M142.86 369.14l-33.94 33.94M464 256h-48M96 256H48M403.08 403.08l-33.94-33.94M142.86 142.86l-33.94-33.94"/><circle cx="256" cy="256" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"/></svg>
+
+            <span class="light__mode">Light</span>
+            <span class="dark__mode">Dark</span>
+        </button>
+    </div>
+    <!-- Dark/Light area end -->
+
+    <main class="main_wrapper overflow-hidden">
+
+
+
+
+        <!-- contact__form__start -->
+        <div class="contact__from__wraper sp_bottom_100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="contact__form__inner">
+                            <div class="contact__form__heading" data-aos="fade-up">
+                                <h3>Feedbacks</h3>
+                                <p>Les champs obligatoires sont marqués * </p>
+                            </div>
+
+                             
+ 
+    {{ form_start(form) }} 
+    <div class="row">  
+
+        <div class="col-xl-6" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.nom) }} <!-- Ajout du label -->  
+                {{ form_widget(form.nom) }}  
+                <div class="contact__icon">  
+                    <i class="icofont-businessman"></i>  
+                </div>  
+            </div>  
+        </div>  
+
+        <div class="col-xl-6" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.prenom) }} <!-- Ajout du label -->  
+                {{ form_widget(form.prenom) }}                                          
+                <div class="contact__icon">  
+                    <i class="icofont-businessman"></i>  
+                </div>  
+            </div>  
+        </div>  
+
+        <div class="col-xl-6" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.Sujet) }} <!-- Ajout du label -->  
+                {{ form_widget(form.Sujet) }}                                         
+                <div class="contact__icon">  
+                    <i class="icofont-envelope"></i>  
+                </div>  
+            </div>  
+        </div>  
+
+    
+
+        
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__input__wraper">  
+                {{ form_label(form.Description) }} <!-- Ajout du label -->  
+                {{ form_widget(form.Description) }}  
+                <div class="contact__icon">  
+                    <i class="icofont-comment"></i>  
+                </div>  
+            </div>  
+        </div>   
+
+        
+
+        <div class="col-xl-12" data-aos="fade-up">  
+            <div class="contact__button">  
+            <button type="submit" value="submit" class="default__button" name="submit">Enregistrer votre feedback </button>
+                <p class="form-messege"></p>  
+            </div>  
+        </div>  
+        {% if form.vars.errors|length > 0 %}  
+            <div class="col-xl-12" data-aos="fade-up">  
+                <div class="alert alert-danger">  
+                    <ul>  
+                        {% for error in form.vars.errors %}  
+                            <li>{{ error.message }}</li>  
+                        {% endfor %}  
+                    </ul>  
+                </div>  
+            </div>  
+        {% endif %}
+    </div>  
+
+{{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- contact__form__end-->
+        
+
+
+
+        
+         <!-- footer__section__start -->
+        <div class="footerarea">
+            <div class="container">
+                <div class="footerarea__newsletter__wraper">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" data-aos="fade-up">
+                            <div class="footerarea__logo">
+                                <a href="#"><img loading="lazy"  src={{asset('img/logo/logo_1.png')}} alt="logophoto"></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" data-aos="fade-up">
+                            <div class="footerarea__newsletter">
+                                <div class="footerarea__newsletter__input">
+                                    <form action="#">
+                                        <input type="text" placeholder="Enter your email here">
+                                        <div class="footerarea__newsletter__button">
+                                            <button type="submit" class="subscribe__btn">Subscribe Now</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footerarea__wrapper">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 " data-aos="fade-up">
+                            <div class="footerarea__inner footerarea__about__us">
+                                <div class="footerarea__heading">
+                                    <h3>About us</h3>
+                                </div>
+                                <div class="footerarea__content">
+                                    <p>orporate clients and leisure travelers has been relying on Groundlink for dependable safe, and professional chauffeured car end service in major cities across World.</p>
+                                </div>
+                                <div class="footerarea__icon">
+                                    <ul>
+                                        <li><a href="http://facebook.com/"><i class="icofont-facebook"></i></a></li>
+                                        <li><a href="http://twitter.com/"><i class="icofont-twitter"></i></a></li>
+                                        <li><a href="http://vimeo.com/"><i class="icofont-vimeo"></i></a></li>
+                                        <li><a href="http://linkedin.com/"><i class="icofont-linkedin"></i></a></li>
+                                        <li><a href="http://skype.com/"><i class="icofont-skype"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 " data-aos="fade-up">
+                            <div class="footerarea__inner">
+                                <div class="footerarea__heading">
+                                    <h3>Usefull Links</h3>
+                                </div>
+                                <div class="footerarea__list">
+                                    <ul>
+                                        <li>
+                                            <a href="#">About Us</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Teachers</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Partner</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Room-Details</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Gallery</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 " data-aos="fade-up">
+                            <div class="footerarea__inner footerarea__padding__left">
+                                <div class="footerarea__heading">
+                                    <h3>Course</h3>
+                                </div>
+                                <div class="footerarea__list">
+                                    <ul>
+                                        <li>
+                                            <a href="#">Ui Ux Design</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Web Development</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Business Strategy</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Softwere Development</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Business English</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12" data-aos="fade-up">
+                            <div class="footerarea__right__wraper footerarea__inner">
+                                <div class="footerarea__heading">
+                                    <h3>Recent Post</h3>
+                                </div>
+                                <div class="footerarea__right__list">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <div class="footerarea__right__img">
+                                                    <img loading="lazy"  src="../img/footer/footer__1.png" alt="footerphoto">
+                                                </div>
+                                                <div class="footerarea__right__content">
+                                                    <span>02 Apr 2024 </span>
+                                                    <h6>Best Your Business</h6>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <div class="footerarea__right__img">
+                                                    <img loading="lazy"  src="../img/footer/footer__2.png" alt="footerphoto">
+                                                </div>
+                                                <div class="footerarea__right__content">
+                                                    <span>02 Apr 2024 </span>
+                                                    <h6>Keep Your Business</h6>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <div class="footerarea__right__img">
+                                                    <img loading="lazy"  src="../img/footer/footer__3.png" alt="footerphoto">
+                                                </div>
+                                                <div class="footerarea__right__content">
+                                                    <span>02 Apr 2024 </span>
+                                                    <h6>Nice Your Business</h6>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footerarea__copyright__wrapper">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" data-aos="fade-up">
+                            <div class="footerarea__copyright__content">
+                                <p>© 2024 Powered by <a href="#">Edurock</a>. All Rights Reserved.</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" data-aos="fade-up">
+                            <div class="footerarea__copyright__list">
+                                <ul>
+                                    <li><a href="#">Terms of Use</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- footer__section__end -->
+
+
+    </main>
+
+
+
+    <!-- JS here -->
+    <script src="{{ asset('js/vendor/modernizr-3.5.0.min.js') }}"></script>
+    <script src="{{ asset('js/vendor/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('js/slick.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.meanmenu.min.js') }}"></script>
+    <script src="{{ asset('js/ajax-form.js') }}"></script>
+    <script src="{{ asset('js/wow.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/waypoints.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
+
+</body>
+
+
+<!-- Mirrored from html.themewin.com/edurock-preview/edurock/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 07 Feb 2025 20:26:50 GMT -->
+</html>

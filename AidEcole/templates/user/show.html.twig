@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ user.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom_etabli</th>
+                <td>{{ user.nomEtabli }}</td>
+            </tr>
+            <tr>
+                <th>Nom_form</th>
+                <td>{{ user.nomForm }}</td>
+            </tr>
+            <tr>
+                <th>Img</th>
+                <td>{{ user.img }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ user.tel }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ user.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Local</th>
+                <td>{{ user.local }}</td>
+            </tr>
+            <tr>
+                <th>Code_postal</th>
+                <td>{{ user.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Rib</th>
+                <td>{{ user.rib }}</td>
+            </tr>
+            <tr>
+                <th>Doc_verif</th>
+                <td>{{ user.docVerif }}</td>
+            </tr>
+            <tr>
+                <th>AgreeTerms</th>
+                <td>{{ user.agreeTerms ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_index') }}">back to list</a>
+
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,86 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>Signalement Details</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+      <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/aos.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/icofont.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+      <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+   </head>
+   <body class="body__wrapper">
+      <!-- breadcrumbarea__section__start -->
+      <div class="breadcrumbarea">
+         <div class="container">
+            <div class="row">
+               <div class="col-xl-12">
+                  <div class="breadcrumb__content__wraper" data-aos="fade-up">
+                     <div class="breadcrumb__title">
+                        <h2 class="heading">Signalement-Details</h2>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- breadcrumbarea__section__end-->
+      <div class="blogarea__2 sp_top_100 sp_bottom_100">
+         <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-8">
+                    <div class="col-xl-6 col-lg-6 col-md-6">
+                        <div class="featurearea__details__img">
+                            <p> Images "Avant" du signalement </p>
+                            <div>
+                                {% for image in signalementTermine.signalement.images %}
+                                    <div class="featurearea__single__thumb__img">
+                                        <img loading="lazy" 
+                                             src="{{ asset('uploads/signalement/' ~ image) }}" 
+                                             alt="Signalement Thumbnail">
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <p> Images "Après" du SignalementTermine </p>
+                            {% if signalementTermine.imagesApres %}
+                            <div >
+                                {% for imageapres in signalementTermine.imagesApres %}
+                                    <div class="featurearea__single__thumb__img">
+                                        <img loading="lazy" 
+                                             src="{{ asset('uploads/signalement/' ~ imageapres) }}" 
+                                             alt="Signalement Après Thumbnail">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <div >
+                            <h3>{{ signalementTermine.signalement.titre }}</h3>
+                        </div>
+                        <h4 class="sidebar__title" data-aos="fade-up">Description du Signalement</h4>
+                        <div >
+                            <p>{{ signalementTermine.description }}</p>
+                        </div>
+                        <a href="{{ path('signalement_termines_apres') }}" class="btn btn-secondary">Retour à la liste</a>
+                    </div>
+                </div>
+            </div>
+         </div>
+      </div>
+      <script src="{{ asset('js/vendor/modernizr-3.5.0.min.js') }}"></script>
+      <script src="{{ asset('js/vendor/jquery-3.6.0.min.js') }}"></script>
+      <script src="{{ asset('js/popper.min.js') }}"></script>
+      <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+      <script src="{{ asset('js/slick.min.js') }}"></script>
+      <script src="{{ asset('js/main.js') }}"></script>
+   </body>
+</html>

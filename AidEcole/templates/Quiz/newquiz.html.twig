@@ -1,0 +1,54 @@
+{% extends 'home/quiz.html.twig' %}
+
+{% block body %}
+<div class="col-xl-9 col-lg-9 col-md-12">
+    <div class="dashboard__content__wraper">
+        <div class="dashboard__section__title">
+            <h4>Ajouter  Quiz</h4>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 aos-init aos-animate" data-aos="fade-up">
+                <ul class="nav about__button__wrap dashboard__button__wrap" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="single__tab__link active" data-bs-toggle="tab"
+                            data-bs-target="#projects__one" type="button" aria-selected="true"
+                            role="tab">Quiz </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-content tab__content__wrapper aos-init aos-animate"
+                id="myTabContent" data-aos="fade-up">
+                <div class="tab-pane fade active show" id="projects__one" role="tabpanel"
+                    aria-labelledby="projects__one">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="dashboard__form__wraper">
+                                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                                        <div class="dashboard__form__input">
+                                            {{ form_label(form.name, 'Quiz Name') }}
+                                            {{ form_widget(form.name, {'attr': {'novalidate':'novalidate' }}) }}
+                                            <div class="invalid-feedback d-block text-danger">  
+                                                {{ form_errors(form.name) }}
+                                            </div>
+
+                                        </div>
+
+                                        <div class="dashboard__form__button">
+                                            <button type="submit" class="default__button">Update Info</button>
+                                        </div>
+                                        {{ form_end(form) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

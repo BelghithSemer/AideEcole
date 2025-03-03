@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+
+    <link rel="stylesheet" href="{{ asset('question/fonts/font.css') }}">
+    <link rel="stylesheet" href="{{ asset('question/css/Bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('question/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('question/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('question/css/animation.css') }}">
+</head>
+<body>
+
+    <main class="overflow-hidden">
+        <header>
+            <div class="step-count">
+                Question <span id="activeStep"></span>/{{ questions|length }}
+            </div>
+        </header>
+    
+        <div class="container h-100">
+            {% if questions %}
+            <form method="post"  action="{{ path('quiz_submit', {'id': quizId}) }}" class="show-section">
+                <input type="hidden" name="quiz_data" id="quizDataInput">
+                
+                {% for question in questions %}
+                    <section class="steps">
+                        <h1 class="quiz-question">
+                            {{ question.title }}
+                        </h1>
+    
+                        <fieldset id="step{{ loop.index }}">
+                            {% for option in question.options %}
+                                <div class="radio-field bounce-left delay-{{ loop.index * 100 }}">
+                                    <input type="radio" name="{{ question.id }}" value="{{ loop.index }}" id="q{{ question.id }}_{{ loop.index }}">
+                                    <label for="q{{ question.id }}_{{ loop.index }}">{{ option }}</label>
+                                </div>
+                            {% endfor %}
+                        </fieldset>
+                    </section>
+                {% endfor %}
+    
+                <div class="next-prev">
+                    <button class="next" id="submitQuiz" type="submit">Submit</button>
+                </div>
+            </form>
+            {% else %}
+                <div class="alert alert-warning">No question found</div>
+            {% endif %}
+        </div>
+    </main>
+    
+<script src="{{ asset('question/js/jQuery/jquery-3.6.3.min.js') }}"></script>
+<script src="{{ asset('question/js/Bootstrap/bootstrap.min.js') }}"></script>
+<script src="{{ asset('question/js/custom.js') }}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const quizDataInput = document.getElementById('quizDataInput');
+
+        if (localStorage.getItem('quizAnswers')) {
+            localStorage.removeItem('quizAnswers');
+        }
+
+        let quizAnswers = {};
+
+        const inputs = document.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => {
+            input.addEventListener('change', function() {
+                quizAnswers[this.name] = this.value;
+                localStorage.setItem('quizAnswers', JSON.stringify(quizAnswers));
+            });
+        });
+
+        inputs.forEach(input => {
+            const savedValue = quizAnswers[input.name];
+            if (savedValue && input.value === savedValue) {
+                input.checked = true;
+            }
+        });
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            quizDataInput.value = JSON.stringify(quizAnswers);
+        });
+    });
+</script>
+</body>
+</html>

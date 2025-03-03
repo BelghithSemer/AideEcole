@@ -1,0 +1,79 @@
+{% extends 'home/quiz.html.twig' %}
+
+{% block body %}
+
+                <div class="col-xl-9 col-lg-9 col-md-12">
+                            <div class="dashboard__content__wraper">
+                                <div class="dashboard__section__title">
+                                    <h4>Liste des Matières</h4>
+                                      <div class="dashboardarea__right">
+     
+                                    
+
+
+                                    </div> 
+                                </div> 
+
+
+
+                                <div class="row">
+                                    <div class="col-xl-12 aos-init aos-animate" data-aos="fade-up">
+                                        <ul class="nav  about__button__wrap dashboard__button__wrap" id="myTab" role="tablist">
+                                            
+
+
+                                        </ul>
+
+                                    </div>
+                                   </div>
+
+
+                        
+                                    <div class="tab-content tab__content__wrapper aos-init aos-animate" id="myTabContent" data-aos="fade-up">
+
+                                        <div class="tab-pane fade active show" id="projects__one" role="tabpanel" aria-labelledby="projects__one">
+                                            <div class="row">
+                                           
+                                           {%  for matiere in  niveaux %}
+                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="gridarea__wraper">
+                                                        <div class="gridarea__img">
+                                               
+                                                            <a href="{{ path('app_cours_parent_index', { matiereId: matiere.id }) }}"><img loading="lazy"  src="{{ asset('img/img/' ~ matiere.img) }}" alt="grid" ></a>
+                                                            
+                                                        </div>
+
+
+
+                                                 <div class="gridarea__heading">
+                                                    {% if "ROLE_PARENT" in user.roles %}
+                                                       <h3><a href="{{ path('app_cours_parent_index', { matiereId : matiere.id }) }}">{{ matiere.Nom }}</a></h3>  
+                                                    {% elseif "ROLE_ENSEIGNANT" in user.roles %}
+                                                        <h3><a href="{{ path('app_cours_index', { id : matiere.id }) }}">{{ matiere.Nom }}</a></h3>
+                                                    {% endif %}
+                                                </div>
+                                                        
+                                                        <div class="gridarea__content">
+                                                            <div class="gridarea__list">
+                                                            </div>
+                                                            
+                                                            <div class="gridarea__bottom">
+                                                               
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                              {% endfor %}  
+                                            </div>
+                                        </div>
+                
+                                  
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+
+{% endblock %}

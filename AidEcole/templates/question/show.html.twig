@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Question{% endblock %}
+
+{% block body %}
+    <h1>Question</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ question.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ question.title }}</td>
+            </tr>
+            <tr>
+                <th>Options</th>
+                <td>
+                    {% if question.options is not empty %}
+                        <dl class="row">
+                            {% for key, value in question.options %}
+                                <dt class="col-sm-2">{{ key }}</dt>
+                                <dd class="col-sm-10">
+                                    {{ value }}
+                                    {% if key == question.correctAnswer %}
+                                        <span class="badge bg-success ms-2">Correcte</span>
+                                    {% endif %}
+                                </dd>
+                            {% endfor %}
+                        </dl>
+                    {% else %}
+                        <span class="text-muted">Aucune option disponible</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Réponse Correcte</th>
+                <td class="fw-bold text-success">
+                    {{ question.correctAnswer }}
+                    {% if question.options[question.correctAnswer] is defined %}
+                        <br>
+                        <small class="text-muted">
+                            ({{ question.options[question.correctAnswer] }})
+                        </small>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        <a href="{{ path('app_question_index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Retour à la liste
+        </a>
+
+        <a href="{{ path('app_question_edit', {'id': question.id}) }}" class="btn btn-primary ms-2">
+            <i class="bi bi-pencil"></i> Modifier
+        </a>
+
+        {{ include('question/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

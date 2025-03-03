@@ -1,0 +1,142 @@
+
+{# templates/registration.html.twig #}
+{% extends 'base.html.twig' %}
+
+
+
+{% block title %}
+  S'inscrire en tant que {{ role|capitalize }}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid p-0" style="height: 100vh;">
+  <div class="row no-gutters" style="height: 100%;">
+    <!-- Left Panel: Static content -->
+    <div class="col-md-3 d-flex flex-column align-items-center justify-content-center bg-primary text-white">
+      <h3>Bienvenue</h3>
+      <p>Vous êtes à un pas de rejoindre la plateforme</p>
+      <a href="{{ path('app_login') }}" class="btn btn-light rounded-pill">Se connecter</a>
+
+    </div>
+
+    <!-- Right Panel: Symfony Form -->
+    <div class="col-md-9 d-flex align-items-center justify-content-center" style="background: #f8f9fa;">
+      <div class="register-form w-75">
+        <h3 class="text-center mb-4">S'inscrire en tant que {{ role|capitalize }}</h3>
+
+        {{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+          <div class="row">
+            <!-- Left column fields -->
+            <div class="col-md-6">
+              <div class="form-group">
+                {{ form_label(registrationForm.email, 'Adresse e-mail') }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre E-mail '}}) }}
+                <div class="form-error">
+    {{ form_errors(registrationForm.email) }}
+</div>
+              </div>
+              <div class="form-group">
+                {{ form_label(registrationForm.nom, 'Nom') }}
+                {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom *'}}) }}
+                {{ form_errors(registrationForm.nom) }}
+              </div>
+              <div class="form-group">
+                {{ form_label(registrationForm.prenom, 'Prénom') }}
+                {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
+                {{ form_errors(registrationForm.prenom) }}
+              </div>
+              <div class="form-group">
+                {{ form_label(registrationForm.tel, 'Numéro de téléphone') }}
+                {{ form_widget(registrationForm.tel, {'attr': {'class': 'form-control', 'placeholder': 'Votre numéro de téléphone'}}) }}
+                {{ form_errors(registrationForm.tel) }}
+              </div>
+              <div class="form-group">
+                {{ form_label(registrationForm.sexe, 'Sexe') }}
+                {{ form_widget(registrationForm.sexe, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(registrationForm.sexe) }}
+              </div>
+            </div>
+
+            <!-- Right column fields -->
+            <div class="col-md-6">
+           <div class="form-group">
+    {{ form_label(registrationForm.password.first, 'Mot de passe') }}
+    {{ form_widget(registrationForm.password.first, {'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'}}) }}
+    <small id="password-strength" class="form-text"></small>
+    {{ form_errors(registrationForm.password.first) }}
+</div>
+
+              <div class="form-group">
+                {{ form_label(registrationForm.password.second, 'Confirmer le mot de passe') }}
+                {{ form_widget(registrationForm.password.second, {'attr': {'class': 'form-control', 'placeholder': 'Confirmer mot de passe'}}) }}
+                {{ form_errors(registrationForm.password.second) }}
+              </div>
+
+              {# Optional role-specific fields #}
+              {% if role == 'responsable_etablissement' %}
+                <div class="form-group">
+                  {{ form_label(registrationForm.nom_etabli, 'Nom de l’établissement') }}
+                  {{ form_widget(registrationForm.nom_etabli, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom d\'établissement' }}) }}
+                  {{ form_errors(registrationForm.nom_etabli) }}
+                </div>
+                <div class="form-group">
+                  {{ form_label(registrationForm.rib, 'RIB bancaire') }}
+                  {{ form_widget(registrationForm.rib, {'attr': {'class': 'form-control', 'placeholder': 'Votre RIB'}}) }}
+                  {{ form_errors(registrationForm.rib) }}
+                </div>
+             <div class="form-group">
+  {{ form_label(registrationForm.doc_verif, 'Document de vérification') }}
+  <div class="custom-file">
+    {{ form_widget(registrationForm.doc_verif, {'attr': {'class': 'custom-file-input', 'id': 'doc_verif', 'placeholder': 'Votre document'}}) }}
+    <label class="custom-file-label" for="doc_verif">Choisir le fichier</label>
+  </div>
+  {{ form_errors(registrationForm.doc_verif) }}
+</div>
+
+              {% elseif role == 'parent' %}
+                <div class="form-group">
+                  {{ form_label(registrationForm.local, 'Adresse') }}
+                  {{ form_widget(registrationForm.local, {'attr': {'class': 'form-control', 'placeholder': 'Votre Adresse'}}) }}
+                  {{ form_errors(registrationForm.local) }}
+                </div>
+                <div class="form-group">
+                  {{ form_label(registrationForm.code_postal, 'Code postal') }}
+                  {{ form_widget(registrationForm.code_postal, {'attr': {'class': 'form-control', 'placeholder': 'Code postal'}}) }}
+                  {{ form_errors(registrationForm.code_postal) }}
+                </div>
+              {% elseif role == 'centre_formation' %}
+                <div class="form-group">
+                  {{ form_label(registrationForm.nom_form, 'Nom du centre de formation') }}
+                  {{ form_widget(registrationForm.nom_form, {'attr': {'class': 'form-control', 'placeholder': 'Nom du Votre centre de formation'}}) }}
+                  {{ form_errors(registrationForm.nom_form) }}
+                </div>
+              {% endif %}
+
+              <div class="form-group">
+                {{ form_widget(registrationForm.agreeTerms) }}
+                {{ form_label(registrationForm.agreeTerms, 'J’accepte les termes et conditions') }}
+                {{ form_errors(registrationForm.agreeTerms) }}
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg mt-3 rounded-pill">S'inscrire</button>
+          </div>
+        {{ form_end(registrationForm) }}
+      </div>
+    </div>
+  </div>
+</div>
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/register.js') }}"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% endblock %}
+
+{% endblock %}
+

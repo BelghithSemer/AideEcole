@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bon d'achat Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+        
+        :root {
+            --primary: #2A5C82;
+            --secondary: #3A86B8;
+            --accent: #FFD700;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            overflow: hidden;
+        }
+
+        @keyframes congratsEntrance {
+            0% { transform: translateY(-100px) rotate(-10deg) scale(0.5); opacity: 0; }
+            70% { transform: translateY(20px) rotate(2deg) scale(1.05); }
+            100% { transform: translateY(0) rotate(0) scale(1); opacity: 1; }
+        }
+
+        @keyframes gradientPulse {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        @keyframes titleJump {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+        }
+
+        .congrats-container {
+            background: linear-gradient(135deg, #ff4b5c, #a01d57, #ff6b6b);
+            background-size: 200% 200%;
+            color: white;
+            width: 500px;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            animation: 
+                congratsEntrance 1s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                gradientPulse 5s ease infinite;
+            overflow: hidden;
+        }
+
+        .congrats-container::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.15) 50%,
+                rgba(255,255,255,0) 100%);
+            animation: shine 4s infinite;
+        }
+
+        .congrats-container h1 {
+            animation: titleJump 1.5s ease infinite;
+        }
+
+        .fa-arrow-down {
+            animation: arrowBounce 1s ease infinite;
+        }
+
+        .voucher-card {
+            background: white;
+            width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(42, 92, 130, 0.15);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(100vh);
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .voucher-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .holographic-strip {
+            height: 40px;
+            background: repeating-linear-gradient(45deg,
+                rgba(255,215,0,0.3),
+                rgba(58,134,184,0.3) 15px,
+                rgba(255,255,255,0.3) 30px);
+            position: relative;
+        }
+
+        .holographic-strip::after {
+            content: "VALIDÉ";
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .voucher-content {
+            padding: 30px;
+            position: relative;
+        }
+
+        .voucher-value {
+            font-size: 64px;
+            color: var(--primary);
+            margin: 20px 0;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .voucher-value::before {
+            content: "VALEUR";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: var(--secondary);
+            letter-spacing: 2px;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall 3s linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100%) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .voucher-btn {
+            background: white;
+            color: #ff4b5c;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .voucher-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .voucher-code {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            letter-spacing: 3px;
+            background: rgba(42, 92, 130, 0.05);
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .copy-notification {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: var(--secondary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            .congrats-container,
+            .voucher-card {
+                width: 90%;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="confetti" id="confetti"></div>
+
+    <div class="congrats-container" id="congrats">
+        <h1>🎉 Félicitations ! Votre Score est <span> {{score}}/{{totalQuestions}}</span></h1>
+        <p>Vous avez gagné un bon d'achat exclusif !</p>
+        <button class="voucher-btn" onclick="revealVoucher()">
+            Voir mon bon
+            <i class="fas fa-arrow-down"></i>
+        </button>
+    </div>
+
+    <div class="voucher-card" id="voucher">
+        <div class="holographic-strip"></div>
+        <div class="voucher-content">
+            <div class="voucher-value">20% de réduction</div>
+            
+            <div class="voucher-details">
+                <div class="voucher-code" onclick="copyCode()">
+                    <span id="code">{{bonCode}}</span>
+                    <span class="copy-notification">Code copié !</span>
+                </div>
+                
+                <div class="validity">
+                    <div><strong>Émis:</strong> <span > {{ dateDeb.format('Y/m/d') }}</span></div>
+                    <div><strong>Expire:</strong> <span>{{ dateFin.format('Y/m/d') }}</span></div>
+                </div>
+            </div>
+
+            <button class="voucher-btn print-btn" onclick="window.print()">
+                <i class="fas fa-print"></i> Imprimer
+            </button>
+            <button class="btn btn-primary" onclick="toggleResults()">Voir la correction</button>
+
+        </div>
+    </div>
+
+    <div class="results-container hidden" id="resultsContainer">
+        <h2>Détails de la Correction</h2>
+        <table>
+            <tr>
+                <th>Question</th>
+                <th>Votre Réponse</th>
+                <th>Réponse Correcte</th>
+                <th>Statut</th>
+            </tr>
+            {% for result in details %}
+                <tr>
+                    <td>{{ result.question }}</td>
+                    <td>{{ result.userAnswer }}</td>
+                    <td>{{ result.correctAnswer }}</td>
+                    <td class="{{ result.correct ? 'correct' : 'incorrect' }}">
+                        {{ result.correct ? '✔️' : '❌' }}
+                    </td>
+                    
+                </tr>
+            {% endfor %}
+        </table>
+        <button class="btn btn-danger" onclick="toggleResults()">Masquer la correction</button>
+        <button class="btn btn-success" onclick="exportToPDF()">
+            <i class="fas fa-file-pdf"></i> Télécharger en PDF
+        </button>
+        
+    </div>
+
+    <script>
+        function generateScore() {
+            return Math.floor(Math.random() * (100 - 80 + 1)) + 80;
+        }
+
+        function generateCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for(let i = 0; i < 14; i++) {
+                code += chars[Math.floor(Math.random() * chars.length)];
+                if(i === 5) code += '-';
+            }
+            return code;
+        }
+
+        function createConfetti() {
+            const colors = ['#ff6b81', '#f973c7', '#FFD700', '#3A86B8'];
+            const container = document.getElementById('confetti');
+            
+            for(let i = 0; i < 100; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.animationDelay = Math.random() * 2 + 's';
+                piece.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                container.appendChild(piece);
+            }
+        }
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+        
+            // Get the element to export
+            const element = document.getElementById('resultsContainer');
+        
+            // Use html2canvas to capture the element
+            html2canvas(element, {
+                scale: 2
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+        
+                // Calculate dimensions
+                const imgWidth = 190;
+                const pageHeight = 297; // A4 size
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let position = 10;
+        
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+        
+                pdf.save('Correction.pdf');
+            });
+        }
+        
+
+        function revealVoucher() {
+            anime({
+                targets: '#congrats',
+                opacity: 0,
+                scale: 0.8,
+                rotate: '-15deg',
+                duration: 800,
+                easing: 'easeInOutExpo'
+            }).finished.then(() => {
+                document.getElementById('voucher').classList.add('visible');
+                createConfetti();
+            });
+        }
+
+        function copyCode() {
+            const code = document.getElementById('code').textContent;
+            navigator.clipboard.writeText(code);
+            
+            const notification = document.querySelector('.copy-notification');
+            notification.style.opacity = '1';
+            setTimeout(() => notification.style.opacity = '0', 2000);
+        }
+
+        function toggleResults() {
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.toggle('hidden');
+        }
+        window.onload = () => {
+            // Génération des données
+            document.getElementById('score-display').textContent = generateScore();
+            
+            // Dates
+            const today = new Date();
+            document.getElementById('issue-date').textContent = 
+                today.toLocaleDateString('fr-FR');
+            
+            const expiryDate = new Date(today);
+            expiryDate.setFullYear(today.getFullYear() + 1);
+            document.getElementById('expiry-date').textContent = 
+                expiryDate.toLocaleDateString('fr-FR');
+
+            // Animations au survol
+            document.getElementById('congrats').addEventListener('mouseenter', () => {
+                anime({
+                    targets: '#congrats',
+                    scale: 1.02,
+                    rotate: () => anime.random(-2, 2),
+                    duration: 500,
+                    easing: 'easeOutElastic(1, .5)'
+                });
+            });
+
+            document.getElementById('congrats').addEventListener('mouseleave', () => {
+                anime({
+                    targets: '#congrats',
+                    scale: 1,
+                    rotate: 0,
+                    duration: 300,
+                    easing: 'easeOutQuad'
+                });
+            });
+        };
+    </script>
+</body>
+</html>

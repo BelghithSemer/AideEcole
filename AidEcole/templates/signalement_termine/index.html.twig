@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SignalementTermine index{% endblock %}
+
+{% block body %}
+    <h1>Liste des signalements terminés</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Images Avant</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for signalement in signalementTermines %}
+                <tr>
+                    <td>{{ signalement.id }}</td>
+                    <td>{{ signalement.description }}</td>
+                    <td>
+                        {% if signalement.images %}
+                            {% for image in signalement.images %}
+                                <img src="{{ asset('uploads/signalement/' ~ image) }}" alt="Image Avant" width="100" />
+                            {% endfor %}
+                        {% else %}
+                            <p>Aucune image avant</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('signalement_poster_images', {'id': signalement.id}) }}" class="btn btn-primary">Poster les Images Après</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

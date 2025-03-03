@@ -1,0 +1,385 @@
+{% extends 'home/quiz.html.twig' %}
+
+{% block body %}
+                        <div class="col-xl-9 col-lg-9 col-md-12">
+                            <div class="dashboard__content__wraper">
+                                <div class="dashboard__section__title">
+                                    <h4>Liste des Cours Publiés</h4>
+                                    {% if 'ROLE_ENSEIGNANT' in user.roles %}
+                                    <div class="dashboardarea__right">
+                                        <div class="dashboardarea__right__button">
+                                            <a class="default__button" href="{{ path('app_cours_new') }}">Créer nouveau Cours 
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                                            </a> 
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-xl-12 aos-init aos-animate" data-aos="fade-up">
+                                        <ul class="nav  about__button__wrap dashboard__button__wrap" id="myTab" role="tablist">
+                                            <!-- <li class="nav-item" role="presentation">
+                                                <button class="single__tab__link active" data-bs-toggle="tab" data-bs-target="#projects__one" type="button" aria-selected="true" role="tab">Cours Publiés</button>
+                                            </li> -->
+                                        </ul>
+                                    </div>
+
+
+                                    <div class="tab-content tab__content__wrapper aos-init aos-animate" id="myTabContent" data-aos="fade-up">
+
+                                        <div class="tab-pane fade active show" id="projects__one" role="tabpanel" aria-labelledby="projects__one">
+                                            <div class="row">
+                                           
+                                           {% for cour in cours %}
+                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                {% if 'ROLE_ENSEIGNANT' in user.roles %} 
+                                                    <div class="gridarea__wraper">
+
+                                                        <div class="gridarea__img">  
+                                                                                           
+                                                             <a href="{{ path('app_cours_edit', { id: cour.id }) }}"><img loading="lazy"   src="../img/gallery/eleves.jpg" alt="grid" ></a>
+                                                            
+                                                    
+                                                        </div>
+                                                        <div class="gridarea__content">
+                                                            <div class="gridarea__list">
+                                                            </div>
+                                                            <div class="gridarea__heading">
+                                                                <h3><a href="{{ path('app_cours_edit', { id: cour.id }) }}">{{ cour.Titre }}</a></h3>  
+                                                            </div>
+                                                            <div class="gridarea__bottom">
+                                                               
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% else %}
+                                                                                             <div class="gridarea__wraper">
+
+                                                        <div class="gridarea__img">  
+                                                                                           
+                                                             <a href="{{ path('app_cours_details', { id: cour.id }) }}"><img loading="lazy"   src="../img/gallery/eleves.jpg" alt="grid" ></a>
+                                                            
+                                                            <div class="gridarea__small__button">
+                                                                <div class="grid__badge blue__color">{{ cour.Matiere.nom }}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="gridarea__content">
+                                                            <div class="gridarea__list">
+                                                            </div>
+                                                            <div class="gridarea__heading">
+                                                                <h3><a href="{{ path('app_cours_details', { id: cour.id }) }}">{{ cour.Titre }}</a></h3>  
+                                                            </div>
+                                                            <div class="gridarea__bottom">
+                                                               
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                              {% endfor %}  
+
+                                            </div>
+                                        </div>
+                
+                                        <div class="tab-pane fade" id="projects__two" role="tabpanel" aria-labelledby="projects__two">
+                
+                                            <div class="row">
+                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="gridarea__wraper">
+                                                        <div class="gridarea__img">
+                                                            <a href="../course-details.html"><img loading="lazy"  src="../img/grid/grid_1.png" alt="grid"></a>
+                                                            <div class="gridarea__small__button">
+                                                                <div class="grid__badge">Data &amp; Tech</div>
+                                                            </div>
+                                                            <div class="gridarea__small__icon">
+                                                                <a href="#"><i class="icofont-heart-alt"></i></a>
+                                                            </div>
+                            
+                                                        </div>
+                                                        <div class="gridarea__content">
+                                                            <div class="gridarea__list">
+                                                                <ul>
+                                                                    <li>
+                                                                        <i class="icofont-book-alt"></i> 23 Lesson
+                                                                    </li>
+                                                                    <li>
+                                                                        <i class="icofont-clock-time"></i> 1 hr 30 min
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="gridarea__heading">
+                                                                <h3><a href="../course-details.html">Foundation course to under stand
+                                                                    about softwere</a></h3>
+                                                            </div>
+                                                            <div class="gridarea__price">
+                                                                $32.00 <del>/ $67.00</del>
+                                                                <span> <del class="del__2">Free</del></span>
+                            
+                                                            </div>
+                                                            <div class="gridarea__bottom">
+                            
+                                                                <a href="instructor-details.html">
+                                                                    <div class="gridarea__small__img">
+                                                                        <img loading="lazy"  src="../img/grid/grid_small_1.jpg" alt="grid">
+                                                                        <div class="gridarea__small__content">
+                                                                            <h6>Micle Jhon</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                            
+                                                                <div class="gridarea__star">
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <span>(44)</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="gridarea__wraper">
+                                                        <div class="gridarea__img">
+                                                            <img loading="lazy"  src="../img/grid/grid_2.png" alt="grid">
+                                                            <div class="gridarea__small__button">
+                                                                <div class="grid__badge blue__color">Mechanical</div>
+                                                            </div>
+                                                            <div class="gridarea__small__icon">
+                                                                <a href="#"><i class="icofont-heart-alt"></i></a>
+                                                            </div>
+                            
+                                                        </div>
+                                                        <div class="gridarea__content">
+                                                            <div class="gridarea__list">
+                                                                <ul>
+                                                                    <li>
+                                                                        <i class="icofont-book-alt"></i> 29 Lesson
+                                                                    </li>
+                                                                    <li>
+                                                                        <i class="icofont-clock-time"></i> 2 hr 10 min
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="gridarea__heading">
+                                                                <h3><a href="#">Nidnies course to under stand
+                                                                    about softwere</a></h3>
+                                                            </div>
+                                                            <div class="gridarea__price green__color">
+                                                                $32.00<del>/$67.00</del>
+                                                                <span>.Free</span>
+                            
+                                                            </div>
+                                                            <div class="gridarea__bottom">
+                                                                <a href="instructor-details.html">
+                                                                    <div class="gridarea__small__img">
+                                                                        <img loading="lazy"  src="../img/grid/grid_small_2.jpg" alt="grid">
+                                                                        <div class="gridarea__small__content">
+                                                                            <h6>Rinis Jhon</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                                <div class="gridarea__star">
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <span>(44)</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="gridarea__wraper">
+                                                        <div class="gridarea__img">
+                                                            <img loading="lazy"  src="../img/grid/grid_5.png" alt="grid">
+                                                            <div class="gridarea__small__button">
+                                                                <div class="grid__badge blue__color">Mechanical</div>
+                                                            </div>
+                                                            <div class="gridarea__small__icon">
+                                                                <a href="#"><i class="icofont-heart-alt"></i></a>
+                                                            </div>
+                            
+                                                        </div>
+                                                        <div class="gridarea__content">
+                                                            <div class="gridarea__list">
+                                                                <ul>
+                                                                    <li>
+                                                                        <i class="icofont-book-alt"></i> 29 Lesson
+                                                                    </li>
+                                                                    <li>
+                                                                        <i class="icofont-clock-time"></i> 2 hr 10 min
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="gridarea__heading">
+                                                                <h3><a href="#">Nidnies course to under stand
+                                                                    about softwere</a></h3>
+                                                            </div>
+                                                            <div class="gridarea__price green__color">
+                                                                $32.00<del>/$67.00</del>
+                                                                <span>.Free</span>
+                            
+                                                            </div>
+                                                            <div class="gridarea__bottom">
+                                                                <a href="instructor-details.html">
+                                                                    <div class="gridarea__small__img">
+                                                                        <img loading="lazy"  src="../img/grid/grid_small_2.jpg" alt="grid">
+                                                                        <div class="gridarea__small__content">
+                                                                            <h6>Rinis Jhon</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                                <div class="gridarea__star">
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <span>(44)</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              
+                                            </div>
+                
+                                        </div>
+                
+                                        <div class="tab-pane fade" id="projects__three" role="tabpanel" aria-labelledby="projects__three">
+                                            <div class="row">
+                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="gridarea__wraper">
+                                                        <div class="gridarea__img">
+                                                            <a href="../course-details.html"><img loading="lazy"  src="../img/grid/grid_1.png" alt="grid"></a>
+                                                            <div class="gridarea__small__button">
+                                                                <div class="grid__badge">Data &amp; Tech</div>
+                                                            </div>
+                                                            <div class="gridarea__small__icon">
+                                                                <a href="#"><i class="icofont-heart-alt"></i></a>
+                                                            </div>
+                            
+                                                        </div>
+                                                        <div class="gridarea__content">
+                                                            <div class="gridarea__list">
+                                                                <ul>
+                                                                    <li>
+                                                                        <i class="icofont-book-alt"></i> 23 Lesson
+                                                                    </li>
+                                                                    <li>
+                                                                        <i class="icofont-clock-time"></i> 1 hr 30 min
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="gridarea__heading">
+                                                                <h3><a href="../course-details.html">Foundation course to under stand
+                                                                    about softwere</a></h3>
+                                                            </div>
+                                                            <div class="gridarea__price">
+                                                                $32.00 <del>/ $67.00</del>
+                                                                <span> <del class="del__2">Free</del></span>
+                            
+                                                            </div>
+                                                            <div class="gridarea__bottom">
+                            
+                                                                <a href="instructor-details.html">
+                                                                    <div class="gridarea__small__img">
+                                                                        <img loading="lazy"  src="../img/grid/grid_small_1.jpg" alt="grid">
+                                                                        <div class="gridarea__small__content">
+                                                                            <h6>Micle Jhon</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                            
+                                                                <div class="gridarea__star">
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <span>(44)</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="gridarea__wraper">
+                                                        <div class="gridarea__img">
+                                                            <img loading="lazy"  src="../img/grid/grid_2.png" alt="grid">
+                                                            <div class="gridarea__small__button">
+                                                                <div class="grid__badge blue__color">Mechanical</div>
+                                                            </div>
+                                                            <div class="gridarea__small__icon">
+                                                                <a href="#"><i class="icofont-heart-alt"></i></a>
+                                                            </div>
+                            
+                                                        </div>
+                                                        <div class="gridarea__content">
+                                                            <div class="gridarea__list">
+                                                                <ul>
+                                                                    <li>
+                                                                        <i class="icofont-book-alt"></i> 29 Lesson
+                                                                    </li>
+                                                                    <li>
+                                                                        <i class="icofont-clock-time"></i> 2 hr 10 min
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="gridarea__heading">
+                                                                <h3><a href="#">Nidnies course to under stand
+                                                                    about softwere</a></h3>
+                                                            </div>
+                                                            <div class="gridarea__price green__color">
+                                                                $32.00<del>/$67.00</del>
+                                                                <span>.Free</span>
+                            
+                                                            </div>
+                                                            <div class="gridarea__bottom">
+                                                                <a href="instructor-details.html">
+                                                                    <div class="gridarea__small__img">
+                                                                        <img loading="lazy"  src="../img/grid/grid_small_2.jpg" alt="grid">
+                                                                        <div class="gridarea__small__content">
+                                                                            <h6>Rinis Jhon</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                                <div class="gridarea__star">
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <i class="icofont-star"></i>
+                                                                    <span>(44)</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                           
+                                            </div>
+                                        </div>
+                
+                                    
+                
+                
+                
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                        
+                        </div>
+{% endblock %}                        

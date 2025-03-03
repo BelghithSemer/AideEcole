@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit SignalementTermine{% endblock %}
+
+{% block body %}
+    <h1>Edit SignalementTermine</h1>
+
+    {{ include('signalement_termine/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_signalement_termine_index') }}">back to list</a>
+
+    {{ include('signalement_termine/_delete_form.html.twig') }}
+{% endblock %}

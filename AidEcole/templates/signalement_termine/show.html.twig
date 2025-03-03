@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SignalementTermine{% endblock %}
+
+{% block body %}
+    <h1>SignalementTermine</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ signalement_termine.id }}</td>
+            </tr>
+            <tr>
+                <th>ImagesApres</th>
+                <td>{{ signalement_termine.imagesApres ? signalement_termine.imagesApres|join(', ') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('signalement_termines') }}">back to list</a>
+
+    <a href="{{ path('signalement_poster_images', {'id': signalement_termine.id}) }}">edit</a>
+
+    {{ include('signalement_termine/_delete_form.html.twig') }}
+{% endblock %}

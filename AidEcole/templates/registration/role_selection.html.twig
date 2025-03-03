@@ -1,0 +1,141 @@
+{# templates/registration/role_selection.html.twig #}
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/aos.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/icofont.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ random() }}">
+
+    <script>
+        if (localStorage.getItem("theme-color") === "dark" || (!("theme-color" in localStorage) && window.matchMedia(
+                "(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("is_dark");
+        }
+        if (localStorage.getItem("theme-color") === "light") {
+            document.documentElement.classList.remove("is_dark");
+        }
+    </script>
+    <style>
+    .course-item img {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .course-item:hover img {
+        transform: scale(1.1);
+    }
+</style>
+
+{% endblock %}
+
+{% block body %}
+    {% include 'components/navbar.html.twig' %}
+     <!-- Dark/Light area start -->
+    <div class="mode_switcher my_switcher">
+        <button id="light--to-dark-button" class="light align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon dark__mode" viewBox="0 0 512 512">
+                <path
+                    d="M160 136c0-30.62 4.51-61.61 16-88C99.57 81.27 48 159.32 48 248c0 119.29 96.71 216 216 216 88.68 0 166.73-51.57 200-128-26.39 11.49-57.38 16-88 16-119.29 0-216-96.71-216-216z"
+                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32">
+                </path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon light__mode" viewBox="0 0 512 512">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"
+                    d="M256 48v48M256 416v48M403.08 108.92l-33.94 33.94M142.86 369.14l-33.94 33.94M464 256h-48M96 256H48M403.08 403.08l-33.94-33.94M142.86 142.86l-33.94-33.94">
+                </path>
+                <circle cx="256" cy="256" r="80" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-miterlimit="10" stroke-width="32"></circle>
+            </svg>
+            <span class="light__mode">Light</span>
+            <span class="dark__mode">Dark</span>
+        </button>
+    </div>
+ 
+    
+    <!-- Courses Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="mb-5">Choisir Votre Type de Compte</h6>
+                <h1 class="mb-5">Nos Rôles</h1>
+            </div>
+            <div class="row g-4 justify-content-center">
+                {% set roles = {
+                    'donateur': 'Donateur',
+                    'responsable_etablissement': 'Responsable Etablissement',
+                    'parent': 'Parent',
+                    'centre_formation': 'Centre de Formation',
+                    'enseignant': 'Enseignant'
+                } %}
+                
+                {% for key, role in roles %}
+    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+        <div class="course-item bg-light">
+            <div class="position-relative overflow-hidden">
+                <a href="{{ path('app_register', {'role': key}) }}">
+                    <img class="img-fluid" src="img/{{ key }}.jpg" alt="{{ role }}">
+                </a>
+            </div>
+            
+        </div>
+        <div class="text-center p-4 pb-0">
+                <h5 class="mb-4">{{ role }}</h5>
+            </div>
+    </div>
+{% endfor %}
+
+            </div>
+        </div>
+    </div>
+    {% include 'components/footer.html.twig' %}
+    
+
+    <!-- Courses End -->
+      <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+    <!-- JS here -->
+    <script src="{{ asset('js/vendor/modernizr-3.5.0.min.js') }}"></script>
+    <script src="{{ asset('js/vendor/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('js/slick.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.meanmenu.min.js') }}"></script>
+    <script src="{{ asset('js/ajax-form.js') }}"></script>
+    <script src="{{ asset('js/wow.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/waypoints.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: none;"><i
+            class="icofont-rounded-up"></i></a>
+{% endblock %}
