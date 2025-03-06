@@ -56,8 +56,14 @@ class Reclamation
     )]
     private ?string $Description = null;
 
+    #[ORM\Column(length: 180)]
+#[Assert\NotBlank(message: "L'email ne peut pas être vide.")]
+#[Assert\Email(message: "L'email '{{ value }}' n'est pas valide.")]
+private ?string $email = null;
 
 
+    #[ORM\Column(length: 50)]
+    private ?string $statut = 'en_attente';
 
 
     #[ORM\ManyToOne(inversedBy: 'reclamations')]
@@ -135,4 +141,30 @@ class Reclamation
 
         return $this;
     }
+
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(string $statut): self
+    {
+        $this->statut = $statut;
+        return $this;
+    }
+
+    public function getEmail(): ?string
+{
+    return $this->email;
+}
+
+public function setEmail(string $email): static
+{
+    $this->email = $email;
+    return $this;
+}
+
+
+
 }

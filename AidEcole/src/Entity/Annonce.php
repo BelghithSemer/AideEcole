@@ -72,23 +72,10 @@ class Annonce
     private Collection $commentaires;
 
 
-    #[ORM\Column(type: 'integer', options: ['default' => 0])]
-    private int $views = 0; // Number of views
-
-    #[ORM\Column(type: 'integer', options: ['default' => 0])]
-    private int $clicks = 0;
-
-
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'participations')]
-    #[ORM\JoinTable(name: 'annonce_participants')]
-    private Collection $participants;
-
-
     public function __construct()
     {
         $this->CentreFormation_id = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
-        $this->participants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,6 +89,7 @@ class Annonce
 
         return $this;
     }
+
 
     public function getTitre(): ?string
     {
@@ -216,77 +204,4 @@ public function removeCommentaire(Commentaire $commentaire): static
 
     return $this;
 }
-
-public function getCommentCount(): int
-    {
-        return $this->commentaires->count();
-    }
-
-public function getViews(): int
-    {
-        return $this->views;
-    }
-
-    public function setViews(int $views): self
-    {
-        $this->views = $views;
-        return $this;
-    }
-
-    public function getClicks(): int
-    {
-        return $this->clicks;
-    }
-
-    public function setClicks(int $clicks): self
-    {
-        $this->clicks = $clicks;
-        return $this;
-    }
-
-    // Increment methods for tracking
-    public function incrementViews(): self
-    {
-        $this->views++;
-        return $this;
-    }
-
-    public function incrementClicks(): self
-    {
-        $this->clicks++;
-        return $this;
-    }
-
-    public function getParticipants(): Collection
-    {
-        return $this->participants;
-    }
-    public function addParticipant(User $user): self
-    {
-        if (!$this->participants->contains($user)) {
-            // Check if there are available places
-            if ($this->participants->count() < $this->NbrePlace) {
-                $this->participants[] = $user;
-                $user->addParticipation($this);
-            } else {
-                throw new \Exception('No available places left.');
-            }
-        }
-        return $this;
-    }
-
-    // Remove a participant
-    public function removeParticipant(User $user): self
-    {
-        if ($this->participants->removeElement($user)) {
-            $user->removeParticipation($this);
-        }
-        return $this;
-    }
-
-    // Check if a user is already a participant
-    public function isParticipant(User $user): bool
-    {
-        return $this->participants->contains($user);
-    }
 }

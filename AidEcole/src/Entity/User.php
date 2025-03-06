@@ -70,11 +70,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $doc_verif = null; 
 
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $endDateSub = null;
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commentaire::class)]
     private Collection $commentaires;
+
+    #[ORM\ManyToMany(targetEntity: Commentaire::class, mappedBy: 'likedByUsers')]
+    private Collection $likedCommentaires;
+
+    #[ORM\ManyToMany(targetEntity: Commentaire::class, mappedBy: 'dislikedByUsers')]
+    private Collection $dislikedCommentaires;
+
+    #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'user')]
+    private Collection $notifications;
+
 
 
 #[ORM\ManyToOne(inversedBy: 'users')]
@@ -87,68 +94,13 @@ private ?Gouvernorat $gouvernorat = null;
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $listFavorisName = null;
 
-
-    #[ORM\Column(type: 'string', length: 50, nullable: true)]
-    private ?string $paymentStatus = null;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Vote::class, orphanRemoval: true)]
-    private Collection $votes;
-
-    #[ORM\ManyToMany(targetEntity: Annonce::class, mappedBy: 'participants')]
-    private Collection $participations;
-
 public function __construct1()
 {
     $this->coursParticipe = new ArrayCollection();
-    $this->votes = new ArrayCollection();
-    $this->participations = new ArrayCollection();
     
 }
 
-public function getVotes(): Collection
-{
-    return $this->votes;
-}
-
-public function addVote(Vote $vote): self
-{
-    if (!$this->votes->contains($vote)) {
-        $this->votes[] = $vote;
-        $vote->setUser($this);
-    }
-    return $this;
-}
-
-public function removeVote(Vote $vote): self
-{
-    if ($this->votes->removeElement($vote)) {
-        if ($vote->getUser() === $this) {
-            $vote->setUser(null);
-        }
-    }
-    return $this;
-}
 // Getters et Setters
-public function getPaymentStatus(): ?string
-{
-    return $this->paymentStatus;
-}
-
-public function setPaymentStatus(?string $paymentStatus): self
-{
-    $this->paymentStatus = $paymentStatus;
-    return $this;
-}
-public function getEndDateSub(): ?\DateTimeInterface
-    {
-        return $this->endDateSub;
-    }
-
-    public function setEndDateSub(?\DateTimeInterface $endDateSub): self
-    {
-        $this->endDateSub = $endDateSub;
-        return $this;
-    }
 public function getCoursParticipe(): Collection
 {
     return $this->coursParticipe;
@@ -418,6 +370,9 @@ public function setDocVerif(?string $doc_verif): static
         $this->favoris = new ArrayCollection();
         $this->listFavorisName =  "Mes Favoris";
         $this->bons = new ArrayCollection();
+        $this->likedCommentaires = new ArrayCollection();
+        $this->dislikedCommentaires = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
     }
 
     public function getCommentaires(): Collection
@@ -446,6 +401,60 @@ public function setDocVerif(?string $doc_verif): static
 
         return $this;
     }
+
+ /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getLikedCommentaires(): Collection
+    {
+        return $this->likedCommentaires;
+    }
+
+    public function addLikedCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->likedCommentaires->contains($commentaire)) {
+            $this->likedCommentaires[] = $commentaire;
+            $commentaire->addLikedByUser($this);
+        }
+        return $this;
+    }
+
+    public function removeLikedCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->likedCommentaires->removeElement($commentaire)) {
+            $commentaire->removeLikedByUser($this);
+        }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getDislikedCommentaires(): Collection
+    {
+        return $this->dislikedCommentaires;
+    }
+
+    public function addDislikedCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->dislikedCommentaires->contains($commentaire)) {
+            $this->dislikedCommentaires[] = $commentaire;
+            $commentaire->addDislikedByUser($this);
+        }
+        return $this;
+    }
+
+    public function removeDislikedCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->dislikedCommentaires->removeElement($commentaire)) {
+            $commentaire->removeDislikedByUser($this);
+        }
+        return $this;
+    }
+
+
+
+
     // Getter
     public function getAgreeTerms(): bool
     {
@@ -605,29 +614,39 @@ public function removeFavoris(Favoris $favoris): self
     return $this;
 }
 
-public function getParticipations(): Collection
+public function getNotifications(): Collection
     {
-        return $this->participations;
+        return $this->notifications;
     }
 
-    // Add a participation
-    public function addParticipation(Annonce $annonce): self
+    public function addNotification(Notification $notification): self
     {
-        if (!$this->participations->contains($annonce)) {
-            $this->participations[] = $annonce;
-            $annonce->addParticipant($this);
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications[] = $notification;
+            $notification->setUser($this);
         }
         return $this;
     }
 
-    // Remove a participation
-    public function removeParticipation(Annonce $annonce): self
+    public function removeNotification(Notification $notification): self
     {
-        if ($this->participations->removeElement($annonce)) {
-            $annonce->removeParticipant($this);
+        if ($this->notifications->removeElement($notification)) {
+            if ($notification->getUser() === $this) {
+                $notification->setUser(null);
+            }
         }
         return $this;
     }
 
+    public function getUnreadNotificationsCount(): int
+    {
+        $count = 0;
+        foreach ($this->notifications as $notification) {
+            if (!$notification->getIsRead()) {
+                $count++;
+            }
+        }
+        return $count;
+    }
 
 }

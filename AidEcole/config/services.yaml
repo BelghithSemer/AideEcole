@@ -1,38 +1,34 @@
-# config/services.yaml
 parameters:
     images_annonces_directory: '%kernel.project_dir%/public/imagesAnnonces'
     pdf_directory: '%kernel.project_dir%/public/pdfs'
     images_signalements_directory: '%kernel.project_dir%/public/uploads/signalement'
     uploads_directory: '%kernel.project_dir%/public/uploads'
-    stripe_secret_key: '%env(STRIPE_SECRET_KEY)%'
-    stripe_sk: '%env(STRIPE_SK)%'
-    stripe_pk: '%env(STRIPE_PK)%'
-    stripe_webhook_secret: '%env(STRIPE_WEBHOOK_SECRET)%'
 
+twig:
+    globals:
+        current_user: '@security.token_storage'
 
 services:
     _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
+        autowire: true      # Active l'autowiring pour tous les services
+        autoconfigure: true # Active l'autoconfiguration pour tous les services
+        public: false       # Rend les services privés par défaut
+
+        # Liaisons communes (bindings)
         bind:
             $passwordHasher: '@Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface'
 
-    # Configuration pour les contrôleurs
+    # Enregistrement des contrôleurs
     App\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    # Configuration pour les dépôts (repositories)
-    App\Repository\:
-        resource: '../src/Repository/'
-
-    # Configuration pour les services de sécurité
+    # Enregistrement des services de sécurité
     App\Security\:
         resource: '../src/Security/'
         autowire: true
 
-    # Configuration globale pour l'application
+    # Enregistrement de tous les services dans src/
     App\:
         resource: '../src/'
         exclude:
@@ -41,7 +37,16 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
-# Configuration Twig (doit être dans un fichier séparé ou dans le bon contexte)
-twig:
-    globals:
-        current_user: '@security.token_storage'
+    # Configuration manuelle du service MailerService
+    App\Service\MailerService:
+        arguments:
+            $mailer: '@Symfony\Component\Mailer\MailerInterface'
+            $from: 'Ihebcherni60@gmail.com'
+
+
+    App\Service\NotificationService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+            
+    App\Service\FeedbackRatingService: ~

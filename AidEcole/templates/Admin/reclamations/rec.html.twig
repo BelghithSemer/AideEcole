@@ -119,7 +119,7 @@
       </div>
     </nav>
     <!-- End Navbar -->
-    <a
+    
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
@@ -131,86 +131,69 @@
           </div>
           
           
-            <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prenom</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sujet</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
-
-
-
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"></th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
-                      <th class="text-secondary opacity-7"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                    {% for reclamation in reclamations %}
-                    <tr>
-                      <td>
+           <div class="card-body px-0 pt-0 pb-2">
+    <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prénom</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sujet</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Statut</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reclamation in reclamations %}
+                <tr>
+                    <td>
                         <div class="d-flex px-2 py-1">
-
-                          <div class="d-flex flex-column justify-content-center">
-                            {{ reclamation.nom }} 
-
-                       
-                          </div>
+                            <div class="d-flex flex-column justify-content-center">
+                                <p class="text-xs font-weight-bold mb-0">{{ reclamation.nom }}</p>
+                            </div>
                         </div>
-                      </td>
+                    </td>
+                    <td>
+                        <p class="text-xs font-weight-bold mb-0">{{ reclamation.prenom }}</p>
+                    </td>
+                    <td>
+                        <p class="text-xs font-weight-bold mb-0">{{ reclamation.Sujet }}</p>
+                    </td>
+                    <td>
+                        <p class="text-xs font-weight-bold mb-0">{{ reclamation.Description }}</p>
+                    </td>
+                    <td>
+                        {% if reclamation.statut == 'resolu' %}
+                            <span class="badge badge-sm bg-gradient-success">Résolu</span>
+                        {% else %}
+                            <span class="badge badge-sm bg-gradient-warning">En attente</span>
+                        {% endif %}
+                    </td>
+                    <td class="align-middle">
+                        <!-- Bouton "Marquer comme résolu" -->
+                        {% if reclamation.statut != 'resolu' %}
+                            <form action="{{ path('app_reclamation_resolve', {'id': reclamation.id}) }}" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-success btn-sm">Marquer comme résolu</button>
+                            </form>
+                        {% endif %}
 
-                        <td>
-                        <p class="text-xs font-weight-bold mb-0">{{reclamation.prenom}}</p>
-                      </td>
-
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">{{reclamation.Sujet}}</p>
-                      </td>
-
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">{{reclamation.Description}}</p>
-                      </td>
-
-                      <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">Online</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold"></span>
-                      </td>
-                      <td class="align-middle">
-                        <!-- Edit Link -->
-                         
-                        <!-- Delete Form -->
+                        <!-- Bouton "Supprimer" -->
                         <form method="post" 
                               action="{{ path('app_reclamation_delete', {'id': reclamation.id}) }}" 
                               class="d-inline" 
-                              onsubmit="return confirm('Are you sure you want to delete this item?');">
+                              onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette réclamation ?');">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reclamation.id) }}">
-                            <button class="text-secondary font-weight-bold text-xs bg-transparent border-0 p-0"
-                                    data-toggle="tooltip"
-                                    data-original-title="Delete reclamation">
-                                Delete
-                            </button>
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                         </form>
-                        
                     </td>
-                    </tr>
-                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
-
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <footer class="footer pt-3  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">

@@ -87,47 +87,6 @@
 .comment-form .btn-primary:hover {
     background-color: #0056b3;
 }
-/* General button styles */
-.vote-button {
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: background-color 0.3s ease;
-}
-
-/* Upvote button (green) */
-.vote-button.upvote {
-    background-color: #4CAF50; /* Green */
-    color: white;
-}
-
-.vote-button.upvote:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
-
-/* Downvote button (red) */
-.vote-button.downvote {
-    background-color: #f44336; /* Red */
-    color: white;
-}
-
-.vote-button.downvote:hover {
-    background-color: #d32f2f; /* Darker red on hover */
-}
-
-/* Icon styles */
-.vote-button i {
-    font-size: 16px;
-}
-.vote-buttons-container {
-    display: flex;
-    gap: 8px; /* Space between the buttons */
-}
 </style>
 
 
@@ -678,37 +637,15 @@
 
                                 <!-- Edit and Delete Icons (Visible Only to the Creator) -->
                                 {% if user and user.id == comment.user.id %}
-                                    <a href="{{ path('app_commentaire_forum_edit', {'id': comment.id}) }}">edit</a>
-                                    {{ include('commentaire_forum/_delete_form.html.twig') }}
-                                {% endif %}
+        <a href="{{ path('app_commentaire_forum_edit', {'id': comment.id}) }}">edit</a>
+
+        {{ include('commentaire_forum/_delete_form.html.twig') }}
+
+{% endif %}
                             </div>
                             <div class="comment-content">
                                 {{ comment.Description }}
-                            </div>
-
-                            <!-- Voting Section -->
-                            <div class="comment-votes">
-                                <span class="vote-count">
-                                    Votes: {{ comment.votes|reduce((carry, vote) => carry + vote.type, 0) }}
-                                </span>
-
-                                <!-- Upvote and Downvote Buttons -->
-                                {% if user %}
-        <div class="vote-buttons-container">
-    <form action="{{ path('comment_vote', {'id': comment.id, 'type': 1}) }}" method="POST" class="vote-form">
-        <button type="submit" class="vote-button upvote">
-            <i class="fa fa-thumbs-up"></i> Upvote
-        </button>
-    </form>
-    <form action="{{ path('comment_vote', {'id': comment.id, 'type': -1}) }}" method="POST" class="vote-form">
-        <button type="submit" class="vote-button downvote">
-            <i class="fa fa-thumbs-down"></i> Downvote
-        </button>
-    </form>
-</div>
-    {% else %}
-        <p>Connectez-vous pour voter.</p>
-    {% endif %}
+                                
                             </div>
                         </div>
                     </div>
@@ -717,18 +654,6 @@
         {% endif %}
     </ul>
 </div>
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
-{% endfor %}
-
-{# Display flash messages for errors (optional) #}
-{% for message in app.flashes('error') %}
-    <div class="alert alert-danger">
-        {{ message }}
-    </div>
-{% endfor %}
 
             <!-- Add New Comment Form -->
             

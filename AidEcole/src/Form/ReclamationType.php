@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType; 
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;   
-
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ReclamationType extends AbstractType
 {
@@ -38,7 +38,15 @@ class ReclamationType extends AbstractType
                 'label' => 'Entrez votre message ici*',
                 'required' => true,
                
+            ])
+
+            ->add('email', TextType::class, [
+                'label' => 'Entrez votre adresse mail ici*',
+                'required' => true,
+               
             ]);
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

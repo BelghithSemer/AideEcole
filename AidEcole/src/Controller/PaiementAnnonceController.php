@@ -9,9 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/paiement/annonce')]
 final class PaiementAnnonceController extends AbstractController
@@ -99,54 +98,5 @@ final class PaiementAnnonceController extends AbstractController
         }
     
         return $this->redirectToRoute('app_paiement_annonce_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    
-
-
-    #[Route('/create-checkout-session', name: 'create_checkout_session', methods: ['POST'])]
-    public function createCheckoutSession(Request $request): Response
-    {
-        // Configurez votre clé secrète Stripe
-        \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
-    
-        // Créez une session de paiement Stripe
-        try {
-            $checkout_session = \Stripe\Checkout\Session::create([
-                'line_items' => [[
-                    'price_data' => [
-                        'currency' => 'usd',
-                        'product_data' => [
-                            'name' => 'T-shirt',
-                        ],
-                        'unit_amount' => 2000, // Montant en cents (20.00 USD)
-                    ],
-                    'quantity' => 1,
-                ]],
-                'mode' => 'payment',
-                'success_url' => $this->generateUrl('paiement_success', [], UrlGeneratorInterface::ABSOLUTE_URL),
-                'cancel_url' => $this->generateUrl('paiement_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            ]);
-    
-            // Redirigez l'utilisateur vers Stripe Checkout
-            return $this->redirect($checkout_session->url);
-        } catch (\Exception $e) {
-            // Gérez les erreurs
-            $this->addFlash('error', 'An error occurred while creating the checkout session: ' . $e->getMessage());
-            return $this->redirectToRoute('app_paiement_annonce_index');
-        }
-    }
-    
-
-    #[Route('/paiement/success', name: 'paiement_success', methods: ['GET'])]
-    public function success(): Response
-    {
-        return $this->render('paiement_annonce/success.html.twig');
-    }
-
-    #[Route('/paiement/cancel', name: 'paiement_cancel', methods: ['GET'])]
-    public function cancel(): Response
-    {
-        return $this->render('paiement_annonce/cancel.html.twig');
     }
 }

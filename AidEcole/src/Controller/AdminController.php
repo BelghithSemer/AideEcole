@@ -7,9 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\CoursRepository;
 
-use App\Entity\Annonce;
-use App\Repository\AnnonceRepository;
-
 final class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin')]
@@ -19,19 +16,6 @@ final class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
-
-    #[Route('/annonce/stats', name: 'annonce_stats')]
-    public function stats(AnnonceRepository $annonceRepository): Response
-    {
-        // Fetch all annonces from the database
-        $annonces = $annonceRepository->findAll();
-
-        // Pass the annonces to the template
-        return $this->render('annonce/stats.html.twig', [
-            'annonces' => $annonces,
-        ]);
-    }
-    
 
     // #[Route('/courss', name: 'admin_cours_index', methods: ['GET'])]
     // public function Cours(CoursRepository $coursRepository): Response

@@ -1,10 +1,77 @@
-{% extends 'base.html.twig' %}
+{% extends 'home/quiz.html.twig' %}  
 
-{% block title %}Payer une annonce{% endblock %}
+{% block body %}  
+<div class="col-xl-9 col-lg-9 col-md-12">  
+    <div class="dashboard__content__wraper">  
+        <div class="dashboard__section__title">  
+            <h4> Paiement Annonce</h4>  
+        </div>  
+        
+        <div class="row">  
+            <div class="col-xl-12 aos-init aos-animate" data-aos="fade-up">  
+                <ul class="nav about__button__wrap dashboard__button__wrap" id="myTab" role="tablist">  
+                    <li class="nav-item" role="presentation">  
+                        <button class="single__tab__link active" data-bs-toggle="tab"  
+                            data-bs-target="#projects__one" type="button" aria-selected="true"  
+                            role="tab"> Paiement Annonce</button>  
+                    </li>  
+                </ul>  
+                <p>Le prix fixe de l'annonce est 100 dt</p>  {# Ajout du message #}  
+            </div>  
 
-{% block body %}
-    <h1>Payer une annonce</h1>
-    <form action="{{ path('create_checkout_session') }}" method="POST">
-        <button type="submit" class="btn btn-success">Paiement</button>
-    </form>
+            <div class="tab-content tab__content__wrapper aos-init aos-animate" id="myTabContent" data-aos="fade-up">  
+                <div class="tab-pane fade active show" id="projects__one" role="tabpanel">  
+                    <div class="row">  
+                        <div class="col-xl-12">  
+                            {{ form_start(form) }}  
+
+                            <div class="row">  
+                                <div class="col-xl-6">  
+                                    <div class="dashboard__form__wraper">  
+                                        <div class="dashboard__form__input">  
+                                            <label>{{ form_label(form.numCarte) }}</label>  
+                                            {{ form_widget(form.numCarte, {'attr': {'class': 'form-control'}}) }}  
+                                        </div>  
+                                    </div>  
+                                </div>  
+                                                            <div class="col-xl-6">  
+                                    <div class="dashboard__form__wraper">  
+                                        <div class="dashboard__form__input">  
+                                            <label>{{ form_label(form.Prix) }}</label>  
+                                            {{ form_widget(form.Prix, {'attr': {'class': 'form-control'}}) }}  
+                                        </div>  
+                                    </div>  
+                                </div> 
+                                <div class="col-xl-6">  
+                                    <div class="dashboard__form__wraper">  
+                                        <div class="dashboard__form__input">  
+                                            <label>{{ form_label(form.dateValidite) }}</label>  
+{{ form_widget(form.dateValidite, {'attr': {'class': 'form-control', 'placeholder': 'MM/YY'}}) }}                                        </div>  
+                                    </div>  
+                                </div>  
+
+                                <div class="col-xl-12">  
+                                    <div class="dashboard__form__button"> 
+
+
+
+
+<a href="{{ path('app_annonceparent_index_1') }}" class="default__button">Sauvegarder</a>
+
+
+
+                                    </div>  
+                                </div>  
+                            </div>  
+
+                            {{ form_end(form) }}  
+                        </div>  
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+</div>  
+
+<a href="{{ path('app_annonce_new') }}" class="default__button">Page Précédente</a>
 {% endblock %}

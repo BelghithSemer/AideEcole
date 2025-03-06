@@ -1,25 +1,30 @@
-{# templates/paiement_annonce/index.html.twig #}
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Prix</th>
-            <th>NumCarte</th>
-            <th>DateValidité</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for paiement in paiement_annonces %}
+{% extends 'base.html.twig' %}
+
+{% block title %}PaiementAnnonce index{% endblock %}
+
+{% block body %}
+    <h1>PaiementAnnonce index</h1>
+
+    <table class="table">
+        <thead>
             <tr>
-                <td>{{ paiement.id }}</td>
-                <td>{{ paiement.Prix }}</td>
-                <td>{{ paiement.numCarte }}</td>
-                <td>{{ paiement.dateValidite|date('Y-m-d') }}</td>
+                <th>Id</th>
+                <th>Prix</th>
+                <th>NumCarte</th>
+                <th>DateValidité</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for paiement_annonce in paiement_annonces %}
+            <tr>
+                <td>{{ paiement_annonce.id }}</td>
+                <td>{{ paiement_annonce.Prix }}</td>
+                <td>{{ paiement_annonce.numCarte }}</td>
+                <td>{{ paiement_annonce.dateValidite ? paiement_annonce.dateValidite|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('paiement_annonce', {'id': paiement.id}) }}" class="btn btn-primary">
-                        Payer avec Stripe
-                    </a>
+                    <a href="{{ path('app_paiement_annonce_show', {'id': paiement_annonce.id}) }}">show</a>
+                    <a href="{{ path('app_paiement_annonce_edit', {'id': paiement_annonce.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -27,5 +32,8 @@
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_paiement_annonce_new') }}">Create new</a>
+{% endblock %}

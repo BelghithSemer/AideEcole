@@ -17,6 +17,19 @@ framework:
     php_errors:
         log: true
 
+    notifier:
+        enabled: true
+        channel_policy:
+            email: ['email'] # Use the 'email' transport for email notifications
+
+        # Configure the email transport using a scalar DSN
+        texter_transports:
+            email: '%env(MAILER_DSN)%' # This must be a scalar value (string)
+            
+    mailer:
+        envelope:
+            sender: 'Ihebcherni60@gmail.com'
+
 when@test:
     framework:
         test: true

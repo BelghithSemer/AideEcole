@@ -4,8 +4,6 @@ namespace App\Controller;
 
 
 use App\Entity\Forum;
-use App\Entity\Vote;
-
 use App\Form\ForumType;
 use App\Repository\ForumRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -144,49 +142,6 @@ public function new(Request $request, EntityManagerInterface $entityManager, Sec
             'commentForm' => $form->createView(),
         ]);
     }
-
-    #[Route('/comment/{id}/vote/{type}', name: 'comment_vote', methods: ['POST'])]
-public function voteComment(Request $request, CommentaireForum $comment, int $type): Response
-{
-    $user = $this->getUser();
-    if (!$user) {
-        throw $this->createAccessDeniedException('You must be logged in to vote.');
-    }
-
-    // Check if the user has already voted on this comment
-    $existingVote = $this->entityManager->getRepository(Vote::class)->findOneBy([
-        'user' => $user,
-        'comment' => $comment,
-    ]);
-
-    if ($existingVote) {
-        // If the user is trying to vote the same way again, remove the vote
-        if ($existingVote->getType() === $type) {
-            $this->entityManager->remove($existingVote);
-            $this->entityManager->flush();
-            $this->addFlash('success', 'Vote removed.');
-            return $this->redirectToRoute('app_forum_show', ['id' => $comment->getForum()->getId()]);
-        }
-
-        // Otherwise, update the vote
-        $existingVote->setType($type);
-        $this->entityManager->flush();
-        $this->addFlash('success', 'Vote updated.');
-        return $this->redirectToRoute('app_forum_show', ['id' => $comment->getForum()->getId()]);
-    }
-
-    // Create a new vote
-    $vote = new Vote();
-    $vote->setUser($user);
-    $vote->setComment($comment);
-    $vote->setType($type);
-
-    $this->entityManager->persist($vote);
-    $this->entityManager->flush();
-
-    $this->addFlash('success', 'Vote saved.');
-    return $this->redirectToRoute('app_forum_show', ['id' => $comment->getForum()->getId()]);
-}
 
     #[Route('/comment/{id}/edit', name: 'app_comment_edit', methods: ['GET', 'POST'])]
     public function editcomment(Request $request, CommentaireForum $comment, EntityManagerInterface $entityManager): Response

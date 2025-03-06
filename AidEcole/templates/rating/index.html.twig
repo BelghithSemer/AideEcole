@@ -1,0 +1,71 @@
+{% extends 'home/quiz.html.twig' %}
+
+{% block body %}
+    <div class="col-xl-9 col-lg-9 col-md-12">
+        <div class="dashboard__content__wraper">
+            <div class="dashboard__section__title">
+                <h4>Évaluations par Rôle</h4>
+            </div>
+
+            <div class="row">
+                {% for role, rating in ratings %}
+                    <div class="col-xl-12 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ role|capitalize }}</h5>
+                                <div class="rating-stars">
+                                    {% for i in 1..5 %}
+                                        <i class="fa-solid fa-star {{ i <= rating ? 'active' : '' }}"></i>
+                                    {% endfor %}
+                                </div>
+                                <p class="card-text">Note moyenne: {{ rating }}/5</p>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-xl-12">
+                        <p>Aucune évaluation disponible pour l'instant.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <style>
+        .rating-stars {
+        font-size: 2rem; /* Adjust the size of the stars */
+        color: #ccc; /* Default color for empty stars */
+        }
+
+        .rating-stars .fa-solid.fa-star {
+            margin-right: 0.5rem; /* Add spacing between stars */
+        }
+
+        .rating-stars .fa-solid.fa-star.active {
+            color: gold; /* Color for filled stars */
+        }
+        
+
+        .rating-stars .star-icon {
+            margin-right: 0.5rem;
+        }
+
+        .rating-stars .star-icon.active {
+            color: gold; /* Active star color */
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+{% endblock %}
+
+
+    

@@ -43,7 +43,7 @@ final class FeedbackController extends AbstractController
     }
     
 
-    #[Route( name: 'app_feedback_new', methods: ['GET', 'POST'])]
+    #[Route('/new' , name: 'app_feedback_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
         $feedback = new Feedback();

@@ -1,167 +1,169 @@
 {% extends 'home/home.html.twig' %}
 
-{%  block body   %}
-
+{% block body %}
 <div class="blogarea__2 sp_top_100 sp_bottom_100">
     <div class="container">
         <div class="row">
             <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                {% for annonce in annonces %}
+                    <div class="blog__content__wraper__2" data-aos="fade-up">
+                        <!-- Image de l'annonce -->
+                        <div class="blogarae__img__2">
+                            {% if annonce.image %}
+                                <img loading="lazy" src="{{ asset('imagesAnnonces/' ~ annonce.image) }}" alt="blog" style="width: 200px; height: auto;">
+                            {% else %}
+                                Pas d'image
+                            {% endif %}
+                            <div class="blogarea__date__2">
+                                <span>24</span>
+                                <span class="blogarea__month">Feb</span>
+                            </div>
+                        </div>
 
+                        <!-- Titre et description de l'annonce -->
+                        <div class="blogarea__text__wraper__2">
+                            <div class="blogarea__heading__2">
+                                <h3><a href="blog-details.html">{{ annonce.titre }}</a></h3>
+                            </div>
+                            <div class="blogarea__paragraph">
+                                <p>{{ annonce.description }}</p>
+                            </div>
+                        </div>
 
-                    {% for annonce in annonces %}
-
-            
-
-
-                <div class="blog__content__wraper__2" data-aos="fade-up">
-                    <div class="blogarae__img__2">
-                                        {% if annonce.image %}
-                                            <img loading="lazy" src="{{ asset('imagesAnnonces/' ~ annonce.image) }}" alt="blog" style="width: 200px; height: auto;">
-                                        {% else %}
-                                            Pas d'image
-                                        {% endif %}
-                        <div class="blogarea__date__2">
-                            <span>24</span>
-                            <span class="blogarea__month">Feb</span>
+                        <!-- Boutons Lire encore et Enregistrer -->
+                        <div class="blogarea__button__2 d-flex justify-content-center align-items-center gap-3">
+                            <a href="blog-details.html" class="btn btn-info">Lire encore</a>
+                            <a href="{{ path('app_student_settings') }}" class="btn btn-info">Enregistrer</a>
                         </div>
                     </div>
-                    <div class="blogarea__text__wraper__2">
-                        <div class="blogarea__heading__2">
-                            <h3><a href="blog-details.html">{{annonce.titre}}</a></h3>
-                        </div>
-                        <div class="blogarea__list__2">
+
+                    <!-- Section des commentaires -->
+                    <div style="padding: 1rem; background-color: #fff; border-top: 1px solid #ddd;">
+                        <h4 style="margin: 0 0 1rem 0;">Commentaires ({{ annonce.commentaires|length }})</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            {% for commentaire in annonce.commentaires %}
+                                <li style="border-bottom: 1px solid #eee; padding: 1rem 0; display: block;">
+                                    <!-- Informations de l'utilisateur et date -->
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                        <span style="font-weight: bold; color: #555;">{{ commentaire.user.prenom }}</span>
+                                        <span style="color: #999; font-size: 12px;">{{ commentaire.date|date('d M Y') }}</span>
+                                    </div>
+
+                                    <!-- Contenu du commentaire -->
+                                    <p style="margin: 0; color: #555; line-height: 1.5;">{{ commentaire.Description }}</p>
+
+                                    <!-- Boutons Like et Dislike -->
+                                    <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                                        <!-- Bouton Like -->
+                                        {% if user in commentaire.likedByUsers %}
+                                            <form method="POST" action="{{ path('comment_unlike', {'id': commentaire.id}) }}">
+                                                <button type="submit" style="background-color: #28a745; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                                                    👍 Retirer le like ({{ commentaire.likes }})
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <form method="POST" action="{{ path('comment_like', {'id': commentaire.id}) }}">
+                                                <button type="submit" style="background-color: #28a745; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                                                    👍 Like ({{ commentaire.likes }})
+                                                </button>
+                                            </form>
+                                        {% endif %}
+
+                                        <!-- Bouton Dislike -->
+                                        {% if user in commentaire.dislikedByUsers %}
+                                            <form method="POST" action="{{ path('comment_undislike', {'id': commentaire.id}) }}">
+                                                <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                                                    👎 Retirer le dislike ({{ commentaire.dislikes }})
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <form method="POST" action="{{ path('comment_dislike', {'id': commentaire.id}) }}">
+                                                <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                                                    👎 Dislike ({{ commentaire.dislikes }})
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+
+                                    <!-- Boutons Supprimer et Modifier (pour l'auteur du commentaire) -->
+                                    {% if user.id == commentaire.user.id %}
+                                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                                            <!-- Bouton Supprimer -->
+                                            <form method="POST" action="{{ path('app_commentaire_delete', {'id': commentaire.id}) }}" onsubmit="return confirm('Are you sure you want to delete this comment?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commentaire.id) }}">
+                                                <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Supprimer</button>
+                                            </form>
+
+                                            <!-- Bouton Modifier -->
+                                            <a href="{{ path('app_commentaire_update', {'id': commentaire.id}) }}" style="background-color: #28a745; color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                                                Modifier
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {% else %}
+                                <li style="color: #999; text-align: center; padding: 1rem;">Aucun commentaire pour cette annonce.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!-- Formulaire d'ajout de commentaire -->
+                    <div style="padding: 1rem; background-color: #f9f9f9; border-top: 1px solid #ddd;">
+                        <h4 style="margin: 0 0 1rem 0;">Ajouter un commentaire</h4>
+                        <form method="POST" action="{{ path('app_annonceparent_index_1') }}" style="display: flex; flex-direction: column; gap: 1rem;" novalidate>
+                            {{ form_start(forms[annonce.id]) }}
                             
-                        </div>
-                        <div class="blogarea__paragraph">
-                            <p>{{annonce.description}}</p>
-                        </div>
-                        <div class="blogarea__button__2">
-                        
+                            <!-- Champ Description -->
+                            <div>
+                                {{ form_label(forms[annonce.id].Description, 'Description', {'label_attr': {'style': 'font-weight: bold; margin-bottom: 0.5rem;'}}) }}
+                                {{ form_widget(forms[annonce.id].Description, {'attr': {'style': 'width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;'}}) }}
+                                {{ form_errors(forms[annonce.id].Description, {'attr': {'class': 'form-error', 'style': 'color: red; font-size: 0.875rem; margin-top: 0.5rem;'}}) }}
+                            </div>
 
+                            <!-- Champ caché pour l'ID de l'annonce -->
+                            <input type="hidden" name="annonce_id" value="{{ annonce.id }}" />
 
-<div class="blogarea__button__2 d-flex justify-content-center align-items-center gap-3">
-    <!-- Bouton Lire encore -->
-    <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}" class="btn btn-info">Lire encore</a>
+                            <!-- Bouton de soumission -->
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <button type="submit" style="background-color: #007bff; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Poster un commentaire</button>
+                            </div>
 
-    {% if app.user %}
-    {% if annonce.isParticipant(app.user) %}
-        <p>You are already participating in this annonce.</p>
-    {% elseif annonce.participants.count() < annonce.NbrePlace %}
-        <form action="{{ path('annonce_participate', {'id': annonce.id}) }}" method="POST">
-            <button type="submit" class="btn btn-primary">Participate</button>
-        </form>
-    {% else %}
-        <p>No available places left.</p>
-    {% endif %}
-{% else %}
-    <p><a href="{{ path('app_login') }}">Log in</a> to participate.</p>
-{% endif %}
-</div>
-    
-</div>
-
-
-                </div>
-            
-<!-- Comments Section -->
-<div style="padding: 1rem; background-color: #fff; border-top: 1px solid #ddd;">
-    <h4 style="margin: 0 0 1rem 0;">Commentaires ({{ annonce.commentaires|length }})</h4>
-    <ul style="list-style: none; padding: 0; margin: 0;">
-        {% for commentaire in annonce.commentaires %}
-    <li style="border-bottom: 1px solid #eee; padding: 1rem 0; display: block;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-            <span style="font-weight: bold; color: #555;">{{ commentaire.user.prenom }}</span>
-            <span style="color: #999; font-size: 12px;">{{ commentaire.date|date('d M Y') }}</span>
-        </div>
-        <p style="margin: 0; color: #555; line-height: 1.5;">
-            {{ commentaire.Description }}
-        </p>
-        {% if user.id == commentaire.user.id %}
-        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-            <!-- Delete Button -->
-            <form method="POST" action="{{ path('app_commentaire_delete', {'id': commentaire.id}) }}" onsubmit="return confirm('Are you sure you want to delete this comment?');">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commentaire.id) }}">
-                <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Delete</button>
-            </form>
-            <!-- Update Button -->
-            <a href="{{ path('app_commentaire_update', {'id': commentaire.id}) }}" style="background-color: #28a745; color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
-                Update
-            </a>
-        </div>
-        {% endif %}
-    </li>
-{% else %}
-    <li style="color: #999; text-align: center; padding: 1rem;">Aucun commentaire pour cette annonce.</li>
-{% endfor %}
-    </ul>
-</div>
-
-<!-- Comment Form -->
-<div style="padding: 1rem; background-color: #f9f9f9; border-top: 1px solid #ddd;">
-    <h4 style="margin: 0 0 1rem 0;">Ajouter un commentaire</h4>
-    <form method="POST" action="{{ path('app_annonceparent_index_1') }}" style="display: flex; flex-direction: column; gap: 1rem;" novalidate>
-        {{ form_start(forms[annonce.id]) }}
-        
-        {# Champ Description #}
-        <div>
-            {{ form_label(forms[annonce.id].Description, 'Description', {'label_attr': {'style': 'font-weight: bold; margin-bottom: 0.5rem;'}}) }}
-            {{ form_widget(forms[annonce.id].Description, {'attr': {'style': 'width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;'}}) }}
-            {{ form_errors(forms[annonce.id].Description, {'attr': {'class': 'form-error', 'style': 'color: red; font-size: 0.875rem; margin-top: 0.5rem;'}}) }}
-        </div>
-
-        {# Champ caché pour l'ID de l'annonce #}
-        <input type="hidden" name="annonce_id" value="{{ annonce.id }}" />
-
-        {# Bouton de soumission #}
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <button type="submit" style="background-color: #007bff; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Poster un commentaire</button>
-        </div>
-
-        {{ form_end(forms[annonce.id]) }}
-    </form>
-</div>
-    </div>
-{% endfor %}
-
-
-
-
-                <div class="main__pagination__wrapper" data-aos="fade-up">
-                    <ul class="main__page__pagination">
-                        <li><a class="disable" href="#"><i class="icofont-double-left"></i></a></li>
-                        <li><a class="active" href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="icofont-double-right"></i></a></li>
-                    </ul>
-                </div>
+                            {{ form_end(forms[annonce.id]) }}
+                        </form>
+                    </div>
+                {% endfor %}
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                <div class="blogsidebar__content__wraper__2" data-aos="fade-up">
-                    <div class="blogsidebar__content__inner__2">
+
+
+            <!-- Sidebar avec les notifications -->
+
+            {# Afficher les notifications #}
+<div class="notifications">
+    <h3>Notifications</h3>
+    {% if notifications is empty %}
+        <p>Aucune notification pour le moment.</p>
+    {% else %}
+        <ul>
+            {% for notification in notifications %}
+                <li class="notification {% if not notification.isRead %}unread{% endif %}">
+                    <p>{{ notification.message }}</p>
+                    <small>{{ notification.createdAt|date('d/m/Y H:i') }}</small>
+                    {% if not notification.isRead %}
+                        <span class="badge bg-primary">Nouveau</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+
+            <!-- Contenu de la sidebar existant -->
                         <div class="blogsidebar__img__2">
-                            <img loading="lazy"  src="img/blog/blog_10.png" alt="blog">
+                            <img loading="lazy" src="img/blog/blog_10.png" alt="blog">
                         </div>
-                        <div class="blogsidebar__name__2">
-                           
-                           
-
-
-                    </form>
-
-                </div>
-                
-               
-
-                       
-                       
-                    </ul>
-
-
-
-               
-
+                    </div>
                 </div>
             </div>
         </div>
@@ -169,10 +171,29 @@
 </div>
 
 <style>
-.annonce-image {
-    width: 200px; /* Adjust as needed */
-    height: auto; /* Maintain aspect ratio */
+    .annonce-image {
+        width: 200px; /* Adjust as needed */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .notifications {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.notification {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+.notification.unread {
+    background-color: #f9f9f9;
+}
+.badge {
+    background-color: #007bff;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
 }
 </style>
-
 {% endblock %}

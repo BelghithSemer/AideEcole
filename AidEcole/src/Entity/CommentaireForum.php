@@ -6,8 +6,7 @@ use App\Repository\CommentaireForumRepository;
 use Doctrine\ORM\Mapping as ORM;  
 use DateTimeImmutable;  
 use Symfony\Component\Validator\Constraints as Assert;  
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
 #[ORM\Entity(repositoryClass: CommentaireForumRepository::class)]  
 class CommentaireForum  
 {  
@@ -35,11 +34,6 @@ class CommentaireForum
     #[ORM\ManyToOne(targetEntity: Forum::class, inversedBy: 'commentaires')]  
     #[ORM\JoinColumn(nullable: false)]  
     private ?Forum $forum = null;  
-
-
-    #[ORM\OneToMany(mappedBy: 'comment', targetEntity: Vote::class, orphanRemoval: true)]
-    private Collection $votes;
-
 
     public function getId(): ?int  
     {  
@@ -96,29 +90,5 @@ class CommentaireForum
     {  
         // Set the createdAt timestamp when the comment is created  
         $this->createdAt = new DateTimeImmutable();  
-        $this->votes = new ArrayCollection();
     }  
-    public function getVotes(): Collection
-{
-    return $this->votes;
-}
-
-public function addVote(Vote $vote): self
-{
-    if (!$this->votes->contains($vote)) {
-        $this->votes[] = $vote;
-        $vote->setComment($this);
-    }
-    return $this;
-}
-
-public function removeVote(Vote $vote): self
-{
-    if ($this->votes->removeElement($vote)) {
-        if ($vote->getComment() === $this) {
-            $vote->setComment(null);
-        }
-    }
-    return $this;
-}
 }

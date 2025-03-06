@@ -58,6 +58,24 @@
 
     <div class="col-xl-6" data-aos="fade-up">  
         <div class="contact__input__wraper">  
+            {{ form_label(form.email) }}  
+            {{ form_widget(form.email, {'attr': {'class': 'form-control ' ~ (form.prenom.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}  
+
+            {% if form.prenom.vars.errors|length > 0 %}  
+                <div class="invalid-feedback d-block text-danger">  
+                    {{ form_errors(form.email) }}  
+                </div>  
+            {% endif %}  
+
+            <div class="contact__icon">  
+              <i class="icofont-email"></i>
+            </div>  
+        </div>  
+    </div>  
+
+
+    <div class="col-xl-6" data-aos="fade-up">  
+        <div class="contact__input__wraper">  
             {{ form_label(form.Sujet) }}   
             {{ form_widget(form.Sujet, {'attr': {'class': 'form-control ' ~ (form.Sujet.vars.errors|length > 0 ? 'is-invalid' : '') }}) }}  
 
